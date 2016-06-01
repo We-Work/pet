@@ -15,7 +15,7 @@ public final class SqlHelper {
 	private static String userName = "sa";
 	private static String password = "123456";
 	
-	//������
+	//加载驱动
 	static{
 		try {
 			Class.forName(driver);
@@ -25,7 +25,7 @@ public final class SqlHelper {
 		}
 	}
 	
-	//��ݿ��ѯ���
+	//数据库查询数据
 	public static ArrayList executeQuery(String sql,String[] paras){
 		ArrayList array = null;
 		Connection conn = null;
@@ -60,7 +60,7 @@ public final class SqlHelper {
 	
 	//
 	
-	//��ݿ�ִ�и���
+	//数据库执行更新
 	public static int executeUpdate(String sql,String[] paras){
 		Connection conn = null;
 		PreparedStatement psm = null;
@@ -83,7 +83,7 @@ public final class SqlHelper {
 		return i;
 	}
 	
-	//Ϊsql���ע�����
+	//为sql语句注入参数
 	public static void setParas(PreparedStatement psm,String[] paras) throws SQLException{
 		if(paras != null && paras.length > 0){
 			for(int i = 0;i < paras.length; i++){
@@ -92,11 +92,11 @@ public final class SqlHelper {
 		}
 	}
 	
-	//��ȡ��ݿ�����
+	//获取数据库连接
 	private static Connection getConnection() throws SQLException{
 		return DriverManager.getConnection(url, userName, password);
 	}
-	//�ر���ݿ�
+	//关闭数据库
 	public static void close(ResultSet result,PreparedStatement psm,Connection conn) 
 		throws SQLException{
 		if(result != null && !result.isClosed()){

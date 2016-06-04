@@ -1,0 +1,104 @@
+.index-main{
+	width: 810px;
+	height: auto;
+}
+.tips{
+	width: 789px;
+	height: 37px;
+	margin-left: 21px;
+}
+.tips h1{
+	display: inline;
+}
+.yel{
+	color: #00AA98;
+}
+
+.count{
+	float: right;
+	width: 146px;
+	height: 29px;
+	font-size:18px;
+	padding-top: 8px;
+	font-weight:lighter;
+	background-color: #F2F2F2;
+}
+.count strong{
+	color:#00AA98;
+}
+.count i{
+	float: left;
+    width: 20px;
+    height: 22px;
+    margin-right: 5px;
+    background: url(/pet/images/lph-pageList-sprite.png) no-repeat 0px 0px;
+}
+.block_content{
+	margin-left: 21px;
+}
+.block_content ul{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.cbox{
+	height: 200px;
+	width: 789px;
+}
+.pet_pic{
+	margin-top: 20px;
+	height:140px;
+	width:210px;
+	float:left;
+}
+.box_title{
+	width: 550px;
+	font-size:22px;
+	letter-spacing:-2px;
+	margin-top:20px;
+	float:right;
+}
+.info{
+	height: 30px;
+	width: 541px;
+	margin-top:20px;
+	bottom:0px;
+	float:right;
+}
+.auto{
+	float:left;
+}
+.auto a:LINK,.auto a:VISITED,.box_title a:LINK,.box_title a:VISITED{
+	color: black;
+	text-decoration: none;
+	
+}
+.auto a{
+	font-size:14px;
+}
+.auto a:HOVER, .box_title a:HOVER{
+	color:#00AA98; 
+}
+
+.auto img{
+	 border-radius: 100%;
+}
+.date{
+	float:left;
+	margin-top:10px;
+	margin-left: 20px;
+}
+.date i{
+	float: left;
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+    background: url(/pet/images/lph-pageList-sprite.png) no-repeat 0px -40px;
+}
+.des{
+	font-size: 14px;
+	margin-top:20px;
+	float: right;
+	width: 541px;
+	height: 40px;
+}

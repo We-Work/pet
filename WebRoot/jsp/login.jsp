@@ -9,7 +9,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>My JSP 'index.jsp' starting page</title>
+    <title>My JSP 'login.jsp' starting page</title>
+    
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -18,18 +19,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-	<script type="text/javascript">
-	function change(){
-		var img = document.getElementById("securitycode");
-		img.src = "/pet/TestController?"+Math.random();
-	}
-	
-	</script>
+
   </head>
   
   <body>
-    This is my JSP page. <br>
-    <img alt="验证码" id="securitycode" src="/pet/TestController">
-    <input type="button" value="换一张" onclick="change()">
+  	<div class="login">
+  		
+  	</div>
   </body>
 </html>

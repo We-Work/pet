@@ -14,5 +14,4 @@
     <servlet-name>TestController</servlet-name>
     <url-pattern>/TestController</url-pattern>
   </servlet-mapping>
-
 </web-app>

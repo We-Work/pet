@@ -18,9 +18,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
+	<script type="text/javascript">
+	function change(){
+		var img = document.getElementById("securitycode");
+		img.src = "/pet/TestController?"+Math.random();
+	}
+	
+	</script>
   </head>
   
   <body>
     This is my JSP page. <br>
+    <img alt="验证码" id="securitycode" src="/pet/TestController">
+    <input type="button" value="换一张" onclick="change()">
   </body>
 </html>

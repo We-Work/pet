@@ -19,13 +19,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
   </head>
   
-  <body style="margin: 0px;">
+  <body>
 	<div class="top">
-		<img alt="" src="/pet/images/logo.jpg">
+		<div class="img">
+		<img alt="" src="/pet/images/logo.png">
+		<img alt="" src="/pet/images/logotext.png">
+		</div>
 		<ul>
 			<li><a href="">个人信息</a></li>
-			<li><a href="">登陆</a></li>
-			<li><a href="">主页</a></li>
+			<li><a href="">欢迎登陆</a></li>
+			<li><a href="">宠物主页</a></li>
 		</ul>
 	</div>
 </body>

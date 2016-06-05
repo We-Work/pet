@@ -41,7 +41,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 			<tr>
 				<td class="lab"><label>密码</label></td>
-				<td><input name="user_pwd" onchange="checkPassword()" type="password" width="200px;"></td>
+				<td><input name="user_pwd" onchange="checkPassword()" onblur="checkPassword()" type="password" width="200px;"></td>
 				<td><div id="msg_pwd"></div></td>
 			</tr>
 			
@@ -57,7 +57,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 			<tr>
 			<td class="lab"><label>手机</label></td>
-			<td><input onchange="checkTel()" type="text" name="user_tel"></td>
+			<td><input onchange="checkTel()" onblur="checkTel()" type="text" name="user_tel"></td>
 			<td><div id="msg_tel"></div></td>
 			</tr>
 			

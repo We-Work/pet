@@ -55,7 +55,7 @@ function checkPassword(){
 function checkTel(){
 	var tel = document.login_form.user_tel;
 	if(tel.value == ""){
-		document.getElementById("msg_tel").innerHTML = "<img height='21px' src='/pet/images/error.jpg'><lable style='color:red'>密码不能为空</lable>";
+		document.getElementById("msg_tel").innerHTML = "<img height='21px' src='/pet/images/error.jpg'><lable style='color:red'>电话不能为空</lable>";
 	}else{
 		document.getElementById("msg_tel").innerHTML = "<img height='21px' src='/pet/images/right.jpg'>";
 	}

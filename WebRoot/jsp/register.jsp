@@ -32,38 +32,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		</div>
   		
 		<form name="login_form" id="form1" action="" method="post">
-			<table width="500px" height="250px;">
+			<table width="500px" height="350px;">
 			<tr>
 				<td class="lab"><label>用户名</label></td>
-				<td width="200px;"><input name="user_name" type="text" width="200px;"></td>
-				<td width="180px;" class="link"><a href="#">立即注册</a></td>
+				<td width="170px;"><input name="user_name" onblur="checkName()" type="text" width="200px;"></td>
+				<td width="220px;"><div id="msg_name"></div></td>
 			</tr>
 			
 			<tr>
 				<td class="lab"><label>密码</label></td>
-				<td><input name="user_pwd" type="password" width="200px;"></td>
-				<td class="link"><a href="#">找回密码</a></td>
+				<td><input name="user_pwd" onchange="checkPassword()" type="password" width="200px;"></td>
+				<td><div id="msg_pwd"></div></td>
 			</tr>
 			
 			
 			<tr>
 				<td class="lab"><label>性别</label></td>
 				<td>
-				<input type="radio" value="男" checked="checked"><label>男</label>
-				<input type="radio" value="女"><label>女</label>
+				<input type="radio" value="男" name="user_sex" checked="checked"><label>男</label>
+				<input type="radio" value="女" name="user_sex"><label>女</label>
 				</td>
 				<td></td>
 			</tr>
 			
 			<tr>
 			<td class="lab"><label>手机</label></td>
-			<td><input type="text" ></td>
-			<td></td>
+			<td><input onchange="checkTel()" type="text" name="user_tel"></td>
+			<td><div id="msg_tel"></div></td>
 			</tr>
 			
 			<tr>
-			<td></td>
-			<td></td>
+			<td class="lab"><label>地址</label></td>
+			<td><input type="text" name="user_address"></td>
 			<td></td>
 			</tr>
 			<tr>
@@ -77,13 +77,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>输入下面图片的字符<br>
 				<img alt="验证码" id="securitycode" 
 				src="/pet/SecurityCodeController?opt=create"></td>
-				<td></td>
+				<td><span style="color: red;" id="msg_code"></span></td>
 			</tr>
 			
 			<tr>
 				<td></td>
-				<td><input type="button" id="comfirm" onclick="checkCode()" value="登录"></td>
-				<td><span style="color: red;" id="msg"></span></td>
+				<td><input type="button" id="comfirm" onclick="checkCode()" value="注册"></td>
+				<td></td>
 			</tr>
 			</table>
 		</form>  		

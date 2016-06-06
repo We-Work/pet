@@ -11,9 +11,9 @@ import java.util.ArrayList;
 public final class SqlHelper {
 	
 	private static String driver = "com.mysql.jdbc.Driver";
-	private static String url = "jdbc:mysql://127.0.0.1:3306/pet?useUnicode=true&amp;characterEncoding=utf-8";
+	private static String url = "jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&amp;characterEncoding=utf-8";
 	private static String userName = "sa";
-	private static String password = "123456";
+	private static String password = "";
 	
 	//加载驱动
 	static{

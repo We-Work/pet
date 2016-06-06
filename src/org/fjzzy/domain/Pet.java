@@ -4,7 +4,7 @@ public class Pet {
 	private int petId;
 	private String petTitle;
 	private int petType;
-	private Date petDate;
+	private Timestamp petDate;
 	private String petIntrod;
 	private boolean petState;
 	private boolean petCheck;
@@ -29,10 +29,10 @@ public class Pet {
 	public void setPetType(int petType) {
 		this.petType = petType;
 	}
-	public Date getPetDate() {
+	public Timestamp getPetDate() {
 		return petDate;
 	}
-	public void setPetDate(Date petDate) {
+	public void setPetDate(Timestamp petDate) {
 		this.petDate = petDate;
 	}
 	public String getPetIntrod() {

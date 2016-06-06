@@ -5,7 +5,7 @@ public class Comment {
 	private int commentUserId;
 	private int commentPetId;
 	private String commentContent;
-	private Date commentDate;
+	private Timestamp commentDate;
 	public int getCommentId() {
 		return commentId;
 	}
@@ -30,10 +30,10 @@ public class Comment {
 	public void setCommentContent(String commentContent) {
 		this.commentContent = commentContent;
 	}
-	public Date getCommentDate() {
+	public Timestamp getCommentDate() {
 		return commentDate;
 	}
-	public void setCommentDate(Date commentDate) {
+	public void setCommentDate(Timestamp commentDate) {
 		this.commentDate = commentDate;
 	}
 }

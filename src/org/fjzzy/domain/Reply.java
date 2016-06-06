@@ -4,7 +4,10 @@ public class Reply {
 	private int replyId;
 	private int replyCommentId;
 	private String replyContent;
-	private Date replyDate;
+	private Timestamp replyDate;
+	public void setReplyDate(Timestamp replyDate) {
+		this.replyDate = replyDate;
+	}
 	public int getReplyId() {
 		return replyId;
 	}
@@ -23,10 +26,7 @@ public class Reply {
 	public void setReplyContent(String replyContent) {
 		this.replyContent = replyContent;
 	}
-	public Date getReplyDate() {
+	public Timestamp getReplyDate() {
 		return replyDate;
-	}
-	public void setReplyDate(Date replyDate) {
-		this.replyDate = replyDate;
 	}
 }

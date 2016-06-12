@@ -11,8 +11,8 @@ import java.util.ArrayList;
 public final class SqlHelper {
 	
 	private static String driver = "com.mysql.jdbc.Driver";
-	private static String url = "jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&amp;characterEncoding=utf-8";
-	private static String userName = "sa";
+	private static String url = "jdbc:mysql://127.0.0.1:3306/pet?useUnicode=true&amp;characterEncoding=utf-8";
+	private static String userName = "root";
 	private static String password = "";
 	
 	//加载驱动
@@ -26,7 +26,7 @@ public final class SqlHelper {
 	}
 	
 	//数据库查询数据
-	public static ArrayList executeQuery(String sql,String[] paras){
+	public static ArrayList executeQuery(String sql,Object[] paras){
 		ArrayList array = null;
 		Connection conn = null;
 		PreparedStatement psm = null;
@@ -61,7 +61,7 @@ public final class SqlHelper {
 	//
 	
 	//数据库执行更新
-	public static int executeUpdate(String sql,String[] paras){
+	public static int executeUpdate(String sql,Object[] paras){
 		Connection conn = null;
 		PreparedStatement psm = null;
 		int i = 0;
@@ -84,10 +84,10 @@ public final class SqlHelper {
 	}
 	
 	//为sql语句注入参数
-	public static void setParas(PreparedStatement psm,String[] paras) throws SQLException{
+	public static void setParas(PreparedStatement psm,Object[] paras) throws SQLException{
 		if(paras != null && paras.length > 0){
 			for(int i = 0;i < paras.length; i++){
-				psm.setString(i+1, paras[i]);
+				psm.setObject(i+1, paras[i]);
 			}
 		}
 	}

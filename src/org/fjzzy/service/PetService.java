@@ -1,25 +1,76 @@
 package org.fjzzy.service;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import org.fjzzy.domain.Pet;
 import org.fjzzy.util.PageBean;
 import org.fjzzy.util.SqlHelper;
 
 public class PetService extends AbstractService{
+	
+	//UserService 对象用于获取 Pet对象的创造者
+	private static UserService userService = new UserService();
+	private static TypeService typeService = new TypeService();
+	private static CommentService commentService = new CommentService();
 	//展示宠物信息
-	public ArrayList<Pet> getListByPage(PageBean pageBean){
+	public ArrayList<Pet> getListByPage(PageBean pageBean, boolean load){
 		ArrayList<Pet> petList = new ArrayList<Pet>();
 		String sql = "select * from Pet limit ?,?";
-		String[] paras = {pageBean.getPageNow()+"", 
-				((pageBean.getPageNow()-1)*pageBean.getPageSize()+1)+""};
+		Object[] paras = {(pageBean.getPageNow()-1)*pageBean.getPageSize(), 
+				pageBean.getPageSize()};
+		@SuppressWarnings("unchecked")
+		
 		ArrayList<Object[]> list = SqlHelper.executeQuery(sql, paras);
 		for(Object[] obj : list){
-			Pet pet = new Pet();
-			parserPet(obj, pet);
+			Pet pet = parserPet(obj);
+			if(load){
+				pet.setUser(userService.getUserById(pet.getPetId(), !load));
+				pet.setType(typeService.getTypeById(pet.getPetType(), !load));
+				pet.setCommentList(commentService.getCommentsByPetId(pet.getPetId(), !load));
+			}
 			petList.add(pet);
 		}
 		return petList;
 	}
+	
+	
+	public ArrayList<Pet> getPetListByType(java.io.Serializable id, boolean load){
+		ArrayList<Pet> petList = new ArrayList<Pet>();
+		String sql = "select * from Pet where pet_type = ?";
+		Object[] paras = {id};
+		@SuppressWarnings("unchecked")
+		ArrayList<Object[]> list = SqlHelper.executeQuery(sql, paras);
+		for(Object[] obj : list){
+			Pet pet = parserPet(obj);
+			if(load){
+				pet.setUser(userService.getUserById(pet.getPetId(), !load));
+				pet.setType(typeService.getTypeById(pet.getPetType(), !load));
+				pet.setCommentList(commentService.getCommentsByPetId(pet.getPetId(), !load));
+			}
+			petList.add(pet);
+		}
+		return petList;
+	}
+	
+	//按petId查找宠物
+	public Pet getPetById(java.io.Serializable id, boolean load){
+		String sql = "select * from pet where pet_id = ?";
+		Object[] paras = {id};
+		@SuppressWarnings("unchecked")
+		List<Object[]> list = SqlHelper.executeQuery(sql, paras);
+		Pet pet = null;
+		if(!list.isEmpty()){
+			pet = parserPet(list.get(0));
+			if(load){
+				pet.setUser(userService.getUserById(pet.getPetUserId(), !load));
+				pet.setType(typeService.getTypeById(pet.getPetType(), !load));
+				pet.setCommentList(commentService.getCommentsByPetId(pet.getPetId(), !load));
+			}
+		}
+		return pet;
+	}
+	
 	//删除宠物信息
 	public boolean delPet(Pet pet){
 		String sql="Delete from Pet where pet_id=?";
@@ -50,36 +101,41 @@ public class PetService extends AbstractService{
 	}
 	
 	//数据库关系对象模式转 java 对象
-	public void parserPet(Object[] obj, Pet pet) {
+	public Pet parserPet(Object[] obj) {
+		Pet pet = new Pet();
 		if(obj[0] != null){
 			pet.setPetId(Integer.parseInt(obj[0].toString()));
 		}
 		if(obj[1] != null){
-			pet.setPetTitle(obj[1].toString());
+			pet.setPetUserId(Integer.parseInt(obj[1].toString()));
 		}
 		if(obj[2] != null){
-			pet.setPetType(Integer.parseInt(obj[2].toString()));
+			pet.setPetTitle(obj[2].toString());
 		}
 		if(obj[3] != null){
-			pet.setPetDate((java.sql.Timestamp)obj[3]);
+			pet.setPetType(Integer.parseInt(obj[3].toString()));
 		}
 		if(obj[4] != null){
-			pet.setPetIntrod(obj[4].toString());
+			pet.setPetDate((java.sql.Timestamp)obj[4]);
 		}
 		if(obj[5] != null){
-			pet.setPetState(Boolean.parseBoolean((obj[5].toString())));
+			pet.setPetIntrod(obj[5].toString());
 		}
 		if(obj[6] != null){
-			pet.setPetCheck(Boolean.parseBoolean((obj[6].toString())));
+			pet.setPetState(Boolean.parseBoolean((obj[6].toString())));
 		}
 		if(obj[7] != null){
-			pet.setPetPic1(obj[7].toString());
+			pet.setPetCheck(Boolean.parseBoolean((obj[7].toString())));
 		}
 		if(obj[8] != null){
-			pet.setPetPic2(obj[8].toString());
+			pet.setPetPic1(obj[8].toString());
 		}
 		if(obj[9] != null){
-			pet.setPetPic3(obj[9].toString());
+			pet.setPetPic2(obj[9].toString());
 		}
+		if(obj[10] != null){
+			pet.setPetPic3(obj[10].toString());
+		}
+		return pet;
 	}
 }

@@ -6,6 +6,7 @@ import org.fjzzy.util.SqlHelper;
 
 public abstract class AbstractService {
 	public int getRowCount(String sql, String[] paras){
+		@SuppressWarnings("unchecked")
 		ArrayList<Object[]> list = SqlHelper.executeQuery(sql, paras);
 		return Integer.parseInt(list.get(0)[0].toString());
 	}

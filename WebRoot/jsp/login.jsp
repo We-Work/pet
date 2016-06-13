@@ -31,7 +31,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		<hr>
   		</div>
   		
-		<form name="login_form" id="form1" action="" method="post">
+		<form name="login_form" id="form1" action="/pet/AuthenController" method="post">
 			<table width="500px" height="250px;">
 			<tr>
 				<td class="lab"><label>用户名</label></td>
@@ -60,12 +60,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 			
 			<tr>
-				<td></td>
+				<td><input type="hidden" name="type" value="login"></td>
 				<td><input type="button" id="comfirm" onclick="checkCode()" value="登录"></td>
 				<td><span style="color: red;" id="msg"></span></td>
 			</tr>
 			</table>
 		</form>  		
+				<!-- 检查是否登录失败 -->
+				<script type="text/javascript">
+					if(location.href.search(/loginError/)> 0){
+						document.getElementById("msg").innerHTML = "用户登录失败";
+					}
+				</script>
   		</div>
   	</div>
   </body>

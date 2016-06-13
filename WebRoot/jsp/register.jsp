@@ -31,7 +31,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		<hr>
   		</div>
   		
-		<form name="login_form" id="form1" action="" method="post">
+		<form name="login_form" id="form1" action="/AuthenController" method="post">
 			<table width="500px" height="350px;">
 			<tr>
 				<td class="lab"><label>用户名</label></td>
@@ -83,7 +83,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td></td>
 				<td><input type="button" id="comfirm" onclick="checkCode()" value="注册"></td>
-				<td></td>
+				<td><input type="hidden" name="type" value="register"></td>
 			</tr>
 			</table>
 		</form>  		

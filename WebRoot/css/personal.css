@@ -1,0 +1,89 @@
+.div0 {
+	width: 830px;
+	height: 700px;
+	margin: 0 auto;
+	background-color: white;
+	box-shadow: 2px 1px 5px 5px gray;
+}
+
+.div1 {
+	width: 810px;
+	height: 690px;
+	margin: 0 auto;
+	background-color: white;
+}
+
+.title1 {
+	height: 40px;
+	background-color: white;
+	width: 810px;
+	margin: 0 auto;
+	border-bottom: 2px;
+	border-bottom-style: solid;
+	border-color: gray;
+}
+
+.title2 {
+	height: 40px;
+	background-color: white;
+	width: 810px;
+	margin: 0 auto;
+	border-bottom: 1px;
+	border-bottom-style: solid;
+	border-color: gray;
+}
+
+.middle {
+	height: 380px;
+	width: 600px;
+	margin-left: 40px;
+	margin-top: 30px;
+	border-bottom: 1px;
+	border-bottom-style: solid;
+	border-color: gray;
+}
+
+.title3 {
+	height: 500px;
+	background-color: white;
+	width: 810px;
+	margin: 0 auto;
+	border-bottom: 1px;
+	border-bottom-style: solid;
+	border-color: gray;
+}
+
+.bottm {
+	height: 60px;
+	background-color: white;
+	width: 810px;
+	margin: 0 auto;
+	border-top: 1px;
+	border-top-style: solid;
+	border-color: gray;
+}
+
+.btn1 {
+	width: 110px;
+	height: 25px;
+	background-color: white;
+	border-color: gray;
+	color: black;
+}
+
+.btn1:hover {
+	background-color: gray;
+	color: white;
+}
+
+.btn2 {
+	width: 110px;
+	height: 25px;
+	background-color: green;
+	color: white;
+}
+
+.btn2:hover {
+	background-color: blue;
+	color: white;
+}

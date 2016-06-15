@@ -34,6 +34,12 @@ public class AuthenController extends HttpServlet {
 			request.getRequestDispatcher("/jsp/login.jsp").forward(request, response);
 		}else if("checkName".equals(type)){
 			response.getWriter().print(userService.checkUserName(user));
+		}else if("findPwd".equals(type)){
+			userService.findPwd(user);
+			request.getRequestDispatcher("/jsp/login.jsp").forward(request, response);
+		}else if("checkTel".equals(type)){
+			String rs = userService.checkTel(user);
+			response.getWriter().print(rs);
 		}
 	}
 

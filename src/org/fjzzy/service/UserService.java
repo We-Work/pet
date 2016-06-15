@@ -44,6 +44,35 @@ public class UserService extends AbstractService{
 		}
 	}
 	
+	/*
+	 * 检查用户电话号码,成功返回success,失败则fail
+	 */
+	public String checkTel(User user){
+		String sql = "select * from user where user_name = ? and user_tel = ?";
+		Object[] paras = {user.getUserName().trim(), user.getUserTel().trim()};
+		List<Object[]> list = SqlHelper.executeQuery(sql, paras);
+		if(!list.isEmpty()){
+			return "success";
+		}else{
+			return "fail";
+		}
+		
+	}
+	/*
+	 * 找回用户密码
+	 */
+	
+	public boolean findPwd(User user){
+		String sql = "update user set user_pwd = ? where user_name = ? and user_tel = ?";
+		Object[] paras = {user.getUserPwd(), user.getUserName(), user.getUserTel()};
+		int i = SqlHelper.executeUpdate(sql, paras);
+		if(i == 1){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
 	//添加一个用户
 	public boolean addUser(User user){
 		String sql = "insert into  user (user_name ,user_pwd ,user_sex ,user_tel ,user_address ) "

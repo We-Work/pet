@@ -1,3 +1,7 @@
+body{
+	width:810px;
+	margin: 0 auto;
+}
 .login{
 	width:810px;
 	height:500px;

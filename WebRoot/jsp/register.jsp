@@ -20,10 +20,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
 	<link rel="stylesheet" type="text/css" href="/pet/css/register.css">
+	<link rel="stylesheet" type="text/css" href="/pet/css/common.css">
 	<script type="text/javascript" src="/pet/js/register.js"></script>
   </head>
   
   <body>
+  <jsp:include page="top.jsp"/>
     <div class="login">
   		<div class="tab">
   		<div class="tab_title">
@@ -31,7 +33,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		<hr>
   		</div>
   		
-		<form name="login_form" id="form1" action="" method="post">
+		<form name="login_form" id="form1" action="/pet/AuthenController" method="post">
 			<table width="500px" height="350px;">
 			<tr>
 				<td class="lab"><label>用户名</label></td>
@@ -83,7 +85,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td></td>
 				<td><input type="button" id="comfirm" onclick="checkCode()" value="注册"></td>
-				<td></td>
+				<td><input type="hidden" name="type" value="register"></td>
 			</tr>
 			</table>
 		</form>  		

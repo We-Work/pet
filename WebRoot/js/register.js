@@ -33,7 +33,7 @@ function checkName(){
 				}
 			}
 		}
-		var url = "/pet/TestController?user_name=" + name.value;
+		var url = "/pet/AuthenController?type=checkName&user_name=" + name.value;
 		xmlHttp.open("GET", url, true);
 		xmlHttp.send(null);
 	}

@@ -24,7 +24,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-  <jsp:include page="top.jsp"></jsp:include>
+  <jsp:include page="top.jsp"/>
   	<div class="index-main">
   		<div class="tips">
   		<h1>

@@ -3,7 +3,7 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
@@ -26,9 +26,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<img alt="" src="/pet/images/logotext.png">
 		</div>
 		<ul>
+			<c:if test="${sessionScope.user != null }">
+			<li><a href="">我的帖子</a></li>
+			<li><a href="">我的回复</a></li>
 			<li><a href="">个人信息</a></li>
+			
+		</c:if>
+		<c:if test="${sessionScope.user == null }">
+			<li><a href="">欢迎注册</a></li>
+		</c:if>
 			<li><a href="">欢迎登陆</a></li>
 			<li><a href="">宠物主页</a></li>
+
 		</ul>
 	</div>
 </body>

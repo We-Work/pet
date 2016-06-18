@@ -26,7 +26,7 @@ public class CommentService extends AbstractService{
 			if(load){
 				comment.setPet(petService.getPetById(comment.getCommentPetId(), !load));
 				comment.setUser(userService.getUserById(comment.getCommentUserId(), !load));
-				comment.setReplyList(replyService.getRepliesByCommentId(comment.getCommentId(), !load));
+				comment.setReplyList(replyService.getRepliesByCommentId(comment.getCommentId(), load));
 			}
 			commentList.add(comment);
 		}
@@ -49,6 +49,16 @@ public class CommentService extends AbstractService{
 		}
 		return comment;
 	}
+	
+	//添加一条回复
+	public boolean addComment(Comment comment){
+		String sql = "insert into comment(comment_user_id, comment_pet_id, comment_content)"
+				+ "values(?, ?, ?)";
+		Object[] paras = {comment.getCommentUserId(), comment.getCommentPetId(), comment.getCommentContent()};
+		int i = SqlHelper.executeUpdate(sql, paras);
+		return i == 1 ? true : false;
+	}
+	
 	
 	public Comment parserComment(Object[] obj){
 		Comment comment = new Comment();

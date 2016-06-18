@@ -21,6 +21,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-  <c:redirect url="/PetController?type=petList"/>
+  <c:redirect url="/PetController"/>
   </body>
 </html>

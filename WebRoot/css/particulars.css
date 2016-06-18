@@ -1,5 +1,6 @@
 .div0 {
-	width: 810px;
+	width: 830px;
+	height: 900px;
 	margin: 0 auto;
 	background-color: white;
 	box-shadow: 2px 1px 5px 5px gray;
@@ -7,6 +8,7 @@
 
 .div1 {
 	width: 810px;
+	height: 890px;
 	margin: 0 auto;
 	background-color: white;
 }
@@ -26,102 +28,21 @@
 }
 
 .title3 {
+	height: 200px;
 	background-color: white;
 	width: 810px;
 	margin: 0 auto;
-	padding-top:20px;
-	padding-bottom:20px;
 	border-bottom: 1px;
 	border-bottom-style: solid;
 	border-color: gray;
 }
 
-.pic{
-	margin: 20px;
-}
-
-.comment{
-	background: #F5F6F7;
-	width: 810px;
-}
-
-.com_box{
-	width: 810px;
-	margin-top:20px;
-	
-}
-.com_title{
-	width:770px;
-	height:35px;
-	margin-left: 20px;
-	margin-right: 20px;
-	border-top: 1px solid gray;
-	border-bottom: 1px solid gray;
-}
-.com_img{
-	margin-left: 10px;
-	width: 35px;
-	float:left;
-}
-.com_img img{
-	margin:0 auto;
-	border-radius:50%;
-	height: 30px;
-}
-.auth{
-	float:left;
-	line-height:30px;
-	height: 30px;
-	margin-left: 10px;
-}
-.time{
-	margin-left:20px;
-	height:30px;
-	float: left;
-	line-height: 30px;
-}
-
-.rp{
-	float:right;
-	line-height: 30px;
-}
-.rp_box{
-	width: 770px;
-	margin: 0 auto;
-}
-
-.rp_box_in{
-	width: 720px;
-	height:130px;
-	margin-left:35px;
-	margin: 0 auto;
-}
-
-.rp_box_btn{
-	width: 50px;
-	float: right;
-	margin-right: 35px;
-}
-
-.reply{
-	margin-left:40px;
-	line-height:30px;
-	width: 730px;
-	background:#EAEAEA;
-	margin-top: 10px;
-}
-
-.com_content{
-	width: 770px;
-	margin-left:20px;
-	text-align:left;
-	line-height:30px;
-}
 .bottm {
 	height: 200px;
 	background-color: white;
 	width: 810px;
 	margin: 0 auto;
+	margin-top: 19.5%;
 	position: absolute;
 	border-top: 1px;
 	border-top-style: solid;
@@ -151,5 +72,4 @@
 .btn2:hover {
 	background-color: blue;
 	color: white;
-	
 }

@@ -13,8 +13,6 @@ import org.fjzzy.service.UserService;
 
 public class AuthenController extends HttpServlet {
 
-	private static final long serialVersionUID = 1L;
-
 	/**
 	 * 验证控制器
 	 * 处理用户登录,注册,忘记密码操作
@@ -52,7 +50,7 @@ public class AuthenController extends HttpServlet {
 		user = userService.checkUser(user);
 		if(user != null){
 			session.setAttribute("user", user);
-			request.getRequestDispatcher("/PetController?type=petList").forward(request, response);
+			request.getRequestDispatcher("/jsp/home.jsp").forward(request, response);
 		}else{
 			//用户不合法
 			response.sendRedirect("/pet/jsp/login.jsp?loginError=error");

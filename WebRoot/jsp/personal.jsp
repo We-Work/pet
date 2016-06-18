@@ -22,8 +22,7 @@
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
 	<link rel="stylesheet" type="text/css" href="/pet/css/personal.css">
-	<link rel="stylesheet" type="text/css" href="/pet/css/common.css">
-	<jsp:include page="top.jsp"/>
+
 </head>
 
 <body>
@@ -62,7 +61,7 @@
 				</div>
 				<p>
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button"
-						class="btn2" value="保存" >
+						class="btn2" value="保存"/ >
 				</p>
 			</div>
 

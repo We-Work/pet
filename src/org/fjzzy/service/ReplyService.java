@@ -20,7 +20,7 @@ public class ReplyService extends AbstractService{
 		for(Object[] obj : replyList){
 			Reply reply = parserReply(obj);
 			if(load){
-				reply.setUser(userService.getUserById(reply.getReplyUserId(), !load));
+				reply.setUser(userService.getUserById(reply.getReplyUserId(), load));
 				reply.setComment(commentService.getCommentById(reply.getReplyCommentId(), !load));
 			}
 			list.add(reply);
@@ -37,12 +37,23 @@ public class ReplyService extends AbstractService{
 		if(!list.isEmpty()){
 			reply = parserReply(list.get(0));
 			if(load){
-				reply.setUser(userService.getUserById(reply.getReplyUserId(), !load));
+				reply.setUser(userService.getUserById(reply.getReplyUserId(), load));
 				reply.setComment(commentService.getCommentById(reply.getReplyCommentId(), !load));
 			}
 		}
 		return reply;
 	}
+	
+	//添加一条回复
+	public boolean addReply(Reply reply){
+		String sql = "insert into reply(reply_user_id, reply_comment_id, reply_content)"
+				+ "values(?, ?, ?)";
+		Object[] paras = {reply.getReplyUserId(), reply.getReplyCommentId(), reply.getReplyContent()};
+		int i = SqlHelper.executeUpdate(sql, paras);
+		return i == 1 ? true : false;
+	}
+	
+	
 	
 	public Reply parserReply(Object[] obj){
 		Reply reply = new Reply();

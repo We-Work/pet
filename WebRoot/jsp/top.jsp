@@ -33,10 +33,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 		</c:if>
 		<c:if test="${sessionScope.user == null }">
-			<li><a href="">欢迎注册</a></li>
+			<li><a href="/pet/jsp/register.jsp">欢迎注册</a></li>
 		</c:if>
-			<li><a href="">欢迎登陆</a></li>
-			<li><a href="">宠物主页</a></li>
+			<li><a href="/pet/jsp/login.jsp">欢迎登陆</a></li>
+			<li><a href="/pet">宠物主页</a></li>
 
 		</ul>
 	</div>

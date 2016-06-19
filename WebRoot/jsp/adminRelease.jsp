@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>所有帖子</title>
+    <title>帖子审核</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -22,9 +22,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-    <jsp:include page="admin.jsp"></jsp:include>
+  	<jsp:include page="admin.jsp"></jsp:include>
   	<div>
-  		<h4>所有帖子</h4>
+  		<h4>待审核帖子</h4>
   		<div>
   		<ul class="block_content">
   			<li>
@@ -45,7 +45,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			<div class="des">可爱的小母猫招聘铲屎官，小猫咪已绝育，特长卖萌，吃饭饭，求抱抱，真心想包养它就联系我，走国际领养程序，网红小猫抱回家！送养人联系方式QQ672906
 			...</div>
 			<div class="delete">
-			<a href="">删除</a>
+			<a href="">删除</a>&nbsp;
+			<a href="">通过审核</a>
 			</div>
 			</div>
   			</li>
@@ -68,7 +69,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			<div class="des">可爱的小母猫招聘铲屎官，小猫咪已绝育，特长卖萌，吃饭饭，求抱抱，真心想包养它就联系我，走国际领养程序，网红小猫抱回家！送养人联系方式QQ672906
 			...</div>
 			<div class="delete">
-			<a href="">删除</a>
+			<a href="">删除</a>&nbsp;
+			<a href="">通过审核</a>
 			</div>
 			</div>
   			</li>
@@ -91,7 +93,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			<div class="des">可爱的小母猫招聘铲屎官，小猫咪已绝育，特长卖萌，吃饭饭，求抱抱，真心想包养它就联系我，走国际领养程序，网红小猫抱回家！送养人联系方式QQ672906
 			...</div>
 			<div class="delete">
-			<a href="">删除</a>
+			<a href="">删除</a>&nbsp;
+			<a href="">通过审核</a>
 			</div>
 			</div>
   			</li>

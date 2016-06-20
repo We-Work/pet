@@ -25,7 +25,7 @@ public class PetService extends AbstractService{
 		for(Object[] obj : list){
 			Pet pet = parserPet(obj);
 			if(load){
-				pet.setUser(userService.getUserById(pet.getPetId(), !load));
+				pet.setUser(userService.getUserById(pet.getPetUserId(), !load));
 				pet.setType(typeService.getTypeById(pet.getPetType(), !load));
 				pet.setCommentList(commentService.getCommentsByPetId(pet.getPetId(), !load));
 			}
@@ -44,7 +44,7 @@ public class PetService extends AbstractService{
 		for(Object[] obj : list){
 			Pet pet = parserPet(obj);
 			if(load){
-				pet.setUser(userService.getUserById(pet.getPetId(), !load));
+				pet.setUser(userService.getUserById(pet.getPetUserId(), !load));
 				pet.setType(typeService.getTypeById(pet.getPetType(), !load));
 				pet.setCommentList(commentService.getCommentsByPetId(pet.getPetId(), !load));
 			}
@@ -85,13 +85,10 @@ public class PetService extends AbstractService{
 	
 	//增加一条宠物信息
 	public boolean addPet(Pet pet){
-		String sql = "insert into Pet(pet_title,pet_type,pet_date,pet_introd,"
-				+ "pet_state,pet_check,pet_pic1,pet_pic2,pet_pic3) values(?,?,?,"
-				+ "?,?,?,?,?)";
-		String[] paras = {pet.getPetTitle(), pet.getPetType()+"", pet.getPetDate().toString(),
-				pet.getPetIntrod(), Boolean.toString(pet.isPetState()), 
-				Boolean.toString(pet.isPetCheck()), pet.getPetPic1(), pet.getPetPic2(),
-				pet.getPetPic3()};
+		String sql = "insert into Pet(pet_user_id,pet_title,pet_type,pet_introd,"
+				+ "pet_pic1,pet_pic2,pet_pic3) values(?,?,?,?,?,?,?)";
+		Object[] paras = {pet.getPetUserId(), pet.getPetTitle(), pet.getPetType(), pet.getPetIntrod(), 
+				pet.getPetPic1(), pet.getPetPic2(), pet.getPetPic3()};
 		int i = SqlHelper.executeUpdate(sql, paras);
 		if(i == 1){
 			return true;

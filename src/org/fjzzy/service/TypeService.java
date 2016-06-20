@@ -1,5 +1,6 @@
 package org.fjzzy.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.fjzzy.domain.Type;
@@ -21,6 +22,18 @@ public class TypeService extends AbstractService{
 			}
 		}
 		return type;
+	}
+	
+	//获取宠物类型类表
+	public List<Type> getTypeList(){
+		List<Type> typeList= new ArrayList<Type>();
+		String sql = "select * from type";
+		List<Object[]> list = SqlHelper.executeQuery(sql, null);
+		for(Object[] obj : list){
+			Type type = parserType(obj);
+			typeList.add(type);
+		}
+		return typeList;
 	}
 	
 	public Type parserType(Object[] obj){

@@ -13,7 +13,7 @@ public class UserService extends AbstractService{
 		Object[] paras = {id};
 		@SuppressWarnings("unchecked")
 		ArrayList<Object[]> list = SqlHelper.executeQuery(sql, paras);
-		return parserUser(list.get(0));
+		return !list.isEmpty() ? parserUser(list.get(0)) : null;
 	}
 	
 	//验证用户是否合法

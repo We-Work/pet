@@ -19,8 +19,10 @@ public class PetService extends AbstractService{
 		String sql = "select * from Pet limit ?,?";
 		Object[] paras = {(pageBean.getPageNow()-1)*pageBean.getPageSize(), 
 				pageBean.getPageSize()};
+		pageBean.setRowCount(this.getRowCount("select count(*) from pet", null));
+		int pageCount = (pageBean.getRowCount()-1) / pageBean.getPageSize() + 1;
+		pageBean.setPageCount(pageCount);
 		@SuppressWarnings("unchecked")
-		
 		ArrayList<Object[]> list = SqlHelper.executeQuery(sql, paras);
 		for(Object[] obj : list){
 			Pet pet = parserPet(obj);

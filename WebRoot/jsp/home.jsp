@@ -76,13 +76,44 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			
   			</div>
   			
-  			
   			</li>
   			</c:forEach>
   		</ul>
   		
   		</div>
-  		
+  		<!-- 分页 -->
+  		<c:set value="${requestScope.pageBean }" var="pageBean"/>
+  		<div class="paging">
+  		<center>
+  		<div class="p_link">
+  			<ul>
+  				<li><a href="/pet/PetController?type=petList&pageNow=1">首页</a></li>
+  				<c:if test="${pageBean.pageNow - 1 > 0}">
+  				<li><a href="/pet/PetController?type=petList&pageNow=${pageBean.pageNow - 1 }">上一页</a></li>
+  				</c:if>
+  				
+  				<c:set value="${(pageBean.pageNow - 1) / 10 + 1 }" var="d"/>
+  				<c:set value="${(d-1) * 10 +1 }" var="s"/>
+  				
+  				<c:forEach begin="${s }" end="${s + 10 }" var="i">
+  				<c:if test="${i <= pageBean.pageCount }">
+  				<li><a href="/pet/PetController?type=petList&pageNow=${i }">${i }</a></li>
+  				</c:if>
+  				</c:forEach>
+  				
+  				<c:if test="${pageBean.pageNow + 1 < pageBean.pageCount }">
+  				<li><a href="/pet/PetController?type=petList&pageNow=${pageBean.pageNow + 1 }">下一页</a></li>
+  				</c:if>
+  				<li><a href="/pet/PetController?type=petList&pageNow=${pageBean.pageCount }">最后一页</a></li>
+  			</ul>
+  			</div>
+  			</center>
+  			<center>
+  			<div class="paging_tip">
+  				<span>现在第<strong>${pageBean.pageNow }</strong>页  / 共<strong>${pageBean.pageCount }</strong>页</span>
+  			</div>
+  			</center>
+  		</div>
   	</div>
   </body>
 </html>

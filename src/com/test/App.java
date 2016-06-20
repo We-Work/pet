@@ -10,19 +10,7 @@ import org.fjzzy.service.PetService;
 
 public class App {
 	public static void main(String[] args) {
-		PetService petService = new PetService();
-		Pet pet = petService.getPetById(1, true);
-		for(Comment comment : pet.getCommentList()){
-			System.out.println(comment.getCommentContent());
-		}
-		CommentService commentService = new CommentService();
-		List<Comment> list = commentService.getCommentsByPetId(1, true);
-		for(Comment comment : list){
-			System.out.println("--" + comment.getCommentContent());
-			for(Reply reply : comment.getReplyList()){
-				System.out.println("----" + reply.getReplyContent());
-			}
-		}
+		System.out.println((2-1)*10 + 1);
 		
 	}
 }

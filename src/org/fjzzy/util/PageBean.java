@@ -6,6 +6,13 @@ public class PageBean {
 	private int pageCount;
 	private int rowCount;
 	
+	public PageBean(int pageSize){
+		this.pageSize = pageSize;
+	}
+	public PageBean(){
+		this.pageSize = 10;
+	}
+	
 	public int getPageNow() {
 		return pageNow;
 	}

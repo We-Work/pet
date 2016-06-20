@@ -102,3 +102,22 @@
 	width: 541px;
 	height: 40px;
 }
+
+.paging{
+	width: 810px;
+	height: 50px;
+}
+
+.p_link{
+	width: 600px;
+	height: 20px;
+	margin-bottom:10px;
+}
+.p_link ul{
+	padding: 0;
+	list-style: none;
+}
+.p_link li{
+	float:left;
+	margin-left: 15px;
+}

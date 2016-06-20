@@ -42,16 +42,24 @@ public class PetController extends HttpServlet {
 			showPetList(request, response, petService);
 		}else{
 			ServletContext servletContext = request.getServletContext();
+			FormUtil.setBasePath(servletContext.getRealPath("/images")  + "\\");
 			HashMap<String, Object> map = FormUtil.parserData(servletContext, request);
-			if("addPet".equals(map.get("type"))){
-				pet = getPet(map);
-				User user = (User) session.getAttribute("user");
-				pet.setPetUserId(user.getUserId());
-				petService.addPet(pet);
-				request.getRequestDispatcher("/PetController?type=petList").forward(request, response);
-			}
+			addPet(request, response, session, petService, map);
 		}
 		
+	}
+	private void addPet(HttpServletRequest request,
+			HttpServletResponse response, HttpSession session,
+			PetService petService, HashMap<String, Object> map)
+			throws ServletException, IOException {
+		Pet pet;
+		if("addPet".equals(map.get("type"))){
+			pet = getPet(map);
+			User user = (User) session.getAttribute("user");
+			pet.setPetUserId(user.getUserId());
+			petService.addPet(pet);
+			request.getRequestDispatcher("/PetController?type=petList").forward(request, response);
+		}
 	}
 	private Pet getPet(HashMap<String, Object> map) {
 		Pet pet = new Pet();
@@ -81,16 +89,18 @@ public class PetController extends HttpServlet {
 	private void showPetList(HttpServletRequest request,
 			HttpServletResponse response, PetService petService)
 			throws ServletException, IOException {
-		PageBean pageBean = new PageBean();
+		//设置pageBean
+		PageBean pageBean = new PageBean(1);
 		
 		if(request.getParameter("pageNow") != null){
-			pageBean.setPageCount(Integer.parseInt(request.getParameter("pageNow")));
+			pageBean.setPageNow(Integer.parseInt(request.getParameter("pageNow")));
 		}else{
 			pageBean.setPageNow(1);
 		}
-		pageBean.setPageSize(10);
+		
 		List<Pet> list = petService.getListByPage(pageBean, true);
 		request.setAttribute("petList", list);
+		request.setAttribute("pageBean", pageBean);
 		request.getRequestDispatcher("/jsp/home.jsp").forward(request, response);
 	}
 

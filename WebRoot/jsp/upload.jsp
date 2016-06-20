@@ -38,7 +38,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	</c:forEach>
   </select>
   <span>标题：</span>
-  <input type="text" name="pet_title" class="editor_title" maxlength="15">
+  <input type="text" name="pet_title" class="editor_title" maxlength="25">
   </div>
  	<div class="pic_box">
  	<span>插入图片:</span>

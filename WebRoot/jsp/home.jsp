@@ -63,7 +63,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			
   			
   			<div class="word">
-  			<div class="box_title"><strong><a href="/pet/PetController?type=petShow&pet_id=${pet.petId }"></a></strong></div>
+  			<div class="box_title"><strong><a href="/pet/PetController?type=petShow&pet_id=${pet.petId }">${pet.petTitle }</a></strong></div>
   			</div>
   			<div class="info">
   			<div class="auto">

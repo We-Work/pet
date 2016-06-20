@@ -68,7 +68,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			<div class="info">
   			<div class="auto">
   			<img src="/pet/images/noavatar_small.gif" width="26px" height="26px;"/>
-  			<a href="#">${pet.user.userName }</a>${pet.user.userId }
+  			<a href="#">${pet.user.userName }</a>
   			</div>
   			<div class="date"><i></i><span>${pet.petDate }</span></div>
   			</div>

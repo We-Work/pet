@@ -10,7 +10,6 @@ import org.fjzzy.service.PetService;
 
 public class App {
 	public static void main(String[] args) {
-		System.out.println((2-1)*10 + 1);
 		
 	}
 }

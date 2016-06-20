@@ -1,7 +1,6 @@
 package com.test;
 
 import java.util.List;
-
 import org.fjzzy.domain.Comment;
 import org.fjzzy.domain.Pet;
 import org.fjzzy.domain.Reply;
@@ -24,5 +23,6 @@ public class App {
 				System.out.println("----" + reply.getReplyContent());
 			}
 		}
+		
 	}
 }

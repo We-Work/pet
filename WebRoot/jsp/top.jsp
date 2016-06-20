@@ -27,6 +27,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 		<ul>
 			<c:if test="${sessionScope.user != null }">
+			<li><a href="/pet/TypeController?type=initAddPet">发布帖子</a></li>
 			<li><a href="">我的帖子</a></li>
 			<li><a href="">我的回复</a></li>
 			<li><a href="">个人信息</a></li>
@@ -36,8 +37,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<li><a href="/pet/jsp/register.jsp">欢迎注册</a></li>
 		</c:if>
 			<li><a href="/pet/jsp/login.jsp">欢迎登陆</a></li>
-			<li><a href="/pet">宠物主页</a></li>
-
+			<li><a href="">宠物主页</a></li>
 		</ul>
 	</div>
 </body>

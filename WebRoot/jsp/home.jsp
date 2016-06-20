@@ -43,14 +43,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			<div class="cbox">
   			<hr>
   			<!-- 宠物图片 -->
-  			<div class="pet_pic"><img src="/pet/images/${pet.petPic1 }"/></div>
+  			<div class="pet_pic">
+  			<c:choose>
+	  			<c:when test="${pet.petPic1 != null }">
+	  			<img width="210px" height="140px" src="/pet/images/${pet.petPic1 }"/>
+	  			</c:when>
+  			<c:otherwise>
+	  			<c:when test="${pet.petPic2 != null }">
+	  			<img width="210px" height="140px" src="/pet/images/${pet.petPic2 }"/>
+	  			</c:when>
+	  			<c:otherwise>
+		  			<c:when test="${pet.petPic3 != null }">
+		  			<img width="210px" height="140px" src="/pet/images/${pet.petPic3 }"/>
+		  			</c:when>
+	  			</c:otherwise>
+  			</c:otherwise>
+  			</c:choose>
+  			</div>
+  			
+  			
   			<div class="word">
-  			<div class="box_title"><strong><a href="/pet/PetController?type=petShow&pet_id=${pet.petId }">${pet.petTitle }</a></strong></div>
+  			<div class="box_title"><strong><a href="/pet/PetController?type=petShow&pet_id=${pet.petId }"></a></strong></div>
   			</div>
   			<div class="info">
   			<div class="auto">
   			<img src="/pet/images/noavatar_small.gif" width="26px" height="26px;"/>
-  			<a href="#">${pet.user.userName }</a>
+  			<a href="#">${pet.user.userName }</a>${pet.user.userId }
   			</div>
   			<div class="date"><i></i><span>${pet.petDate }</span></div>
   			</div>

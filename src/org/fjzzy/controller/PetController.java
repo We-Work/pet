@@ -1,17 +1,23 @@
 package org.fjzzy.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.fjzzy.domain.Comment;
 import org.fjzzy.domain.Pet;
+import org.fjzzy.domain.User;
 import org.fjzzy.service.CommentService;
 import org.fjzzy.service.PetService;
+import org.fjzzy.util.FormUtil;
 import org.fjzzy.util.PageBean;
 
 public class PetController extends HttpServlet {
@@ -23,6 +29,7 @@ public class PetController extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
+		HttpSession session = request.getSession();
 		PetService petService = new PetService();
 		CommentService commentService = new CommentService();
 		String type = request.getParameter("type");
@@ -33,11 +40,43 @@ public class PetController extends HttpServlet {
 			
 		}else if("petList".equals(type)){
 			showPetList(request, response, petService);
+		}else{
+			ServletContext servletContext = request.getServletContext();
+			HashMap<String, Object> map = FormUtil.parserData(servletContext, request);
+			if("addPet".equals(map.get("type"))){
+				pet = getPet(map);
+				User user = (User) session.getAttribute("user");
+				pet.setPetUserId(user.getUserId());
+				petService.addPet(pet);
+				request.getRequestDispatcher("/PetController?type=petList").forward(request, response);
+			}
 		}
 		
 	}
-
-
+	private Pet getPet(HashMap<String, Object> map) {
+		Pet pet = new Pet();
+		pet.setPetUserId(map.get("pet_user_id") != null ? Integer.parseInt(map.get("pet_user_id").toString()) : -1);
+		pet.setPetTitle(map.get("pet_title") != null ? map.get("pet_title").toString() : null);
+		pet.setPetType((map.get("pet_type") != null ? Integer.parseInt(map.get("pet_type").toString()) : -1));
+		pet.setPetIntrod(map.get("pet_introd") != null ? map.get("pet_introd").toString() : null);
+		@SuppressWarnings("unchecked")
+		List<String> list = (List<String>) map.get("fileName");
+		Iterator<String> it = list.iterator();
+		int i = 0;
+		while(it.hasNext()){
+			String fileName = it.next();
+			switch(i){
+			case 0 : pet.setPetPic1(fileName);
+			break;
+			case 1 : pet.setPetPic2(fileName);
+			break;
+			case 2 : pet.setPetPic3(fileName);
+			break;
+			}
+			i++;
+		}
+		return pet;
+	}
 
 	private void showPetList(HttpServletRequest request,
 			HttpServletResponse response, PetService petService)

@@ -41,10 +41,14 @@ public class PetController extends HttpServlet {
 		}else if("petList".equals(type)){
 			showPetList(request, response, petService);
 		}else{
-			ServletContext servletContext = request.getServletContext();
-			FormUtil.setBasePath(servletContext.getRealPath("/images")  + "\\");
-			HashMap<String, Object> map = FormUtil.parserData(servletContext, request);
-			addPet(request, response, session, petService, map);
+			if(session.getAttribute("user") != null){
+				ServletContext servletContext = request.getServletContext();
+				FormUtil.setBasePath(servletContext.getRealPath("/images")  + "\\");
+				HashMap<String, Object> map = FormUtil.parserData(servletContext, request);
+				addPet(request, response, session, petService, map);
+			}else{
+				request.getRequestDispatcher("/jsp/login.jsp").forward(request, response);
+			}
 		}
 		
 	}

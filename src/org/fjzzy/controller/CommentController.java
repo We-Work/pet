@@ -34,10 +34,15 @@ public class CommentController extends HttpServlet {
 			HttpServletResponse response, HttpSession session,
 			CommentService commentService) throws ServletException, IOException {
 		Comment comment = extractComment(request);
-		User user = (User) session.getAttribute("user");
-		comment.setCommentUserId(user.getUserId());
-		commentService.addComment(comment);
-		request.getRequestDispatcher("/PetController?type=petShow&pet_id=" + comment.getCommentPetId()).forward(request, response);
+		
+		if(session.getAttribute("user") != null){
+			User user = (User) session.getAttribute("user");
+			comment.setCommentUserId(user.getUserId());
+			commentService.addComment(comment);
+			request.getRequestDispatcher("/PetController?type=petShow&pet_id=" + comment.getCommentPetId()).forward(request, response);
+		}else{
+			request.getRequestDispatcher("/jsp/login.jsp").forward(request, response);
+		}
 	}
 	private Comment extractComment(HttpServletRequest request) {
 		Comment comment = new Comment();

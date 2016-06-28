@@ -31,10 +31,6 @@ public class AuthenController extends HttpServlet {
 		
 		if("login".equals(type)){
 			login(request, response, session, user, userService);
-		}else if("changeUser".equals(type)) {
-			changeUser(request, response, session, user, userService);
-		}else if("lookPersonal".equals(type)){
-			lookPersonalf(request, response, session, user, userService);
 		}else if("register".equals(type)){
 			userService.addUser(user);
 			request.getRequestDispatcher("/jsp/login.jsp").forward(request, response);
@@ -62,37 +58,7 @@ public class AuthenController extends HttpServlet {
 			response.sendRedirect("/pet/jsp/login.jsp?loginError=error");
 		}
 	}
-	//修改个人信息
-	private void changeUser(HttpServletRequest request,
-			HttpServletResponse response, HttpSession session, User user,
-			UserService userService) throws ServletException, IOException {
-		
-		boolean us=userService.changeUser(user);
-		if(us){
-			session.setAttribute("user", user);
-			//更新信息成功
-			response.sendRedirect("/pet/jsp/personal.jsp?change=true");
-		}else {
-			//更新信息失败
-			response.sendRedirect("/pet/jsp/personal.jsp");
-		}
-		
-	}
-	//查看他人信息页面
-	private void lookPersonalf(HttpServletRequest request,
-			HttpServletResponse response, HttpSession session, User user,
-			UserService userService) throws ServletException, IOException {
-		int user_id=Integer.valueOf(request.getParameter("user_id"));		
-		user = userService.getUserById(user_id, false);		
-		if(user != null){
-			request.setAttribute("user", user);
-			request.getRequestDispatcher("/jsp/lookPersonal.jsp").forward(request, response);
-		}else{
-			
-			request.getRequestDispatcher("/PetController?type=petList").forward(request, response);
-		}
-		
-	}
+	
 	
 	private User extractUser(HttpServletRequest request) {
 		User user = new User();

@@ -30,7 +30,7 @@
 
 <body>
 	<c:if test="${sessionScope.user!=null}">
-	<form name="personalForm" action="/pet/AuthenController" method="post"
+	<form name="personalForm" action="/pet/UserController" method="post"
 		onsubmit="return checkInput()">
 		<div class="div0">
 			<div class="div1">

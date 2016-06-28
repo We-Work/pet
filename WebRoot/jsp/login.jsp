@@ -26,7 +26,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
   <jsp:include page="top.jsp"/>
   	<div class="login">
-  	<jsp:include page="top.jsp"></jsp:include>
   		<div class="tab">
   		<div class="tab_title">
   		<div class="word"><strong>用户登录</strong></div>

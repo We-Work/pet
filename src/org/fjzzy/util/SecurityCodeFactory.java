@@ -9,8 +9,9 @@ import java.io.IOException;
 import java.util.Random;
 import javax.imageio.ImageIO;
 public class SecurityCodeFactory {
+	private static SecurityCode securityCode = null;
 	public static SecurityCode getSecurityCode(){
-		SecurityCode securityCode = new SecurityCode();
+		securityCode = new SecurityCode();
 		//设置画布
 		BufferedImage img = new BufferedImage(100, 40, BufferedImage.TYPE_INT_BGR);
 		Graphics g = img.getGraphics();

@@ -20,20 +20,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	-->
 	<link rel="stylesheet" type="text/css" href="/pet/css/login.css">
 	<link rel="stylesheet" type="text/css" href="/pet/css/common.css">
-	<script type="text/javascript" src="/pet/js/login.js"></script>
+	<script type="text/javascript" src="/pet/js/findpwd.js"></script>
   </head>
   
   <body>
   <jsp:include page="top.jsp"/>
   	<div class="login">
-  	<jsp:include page="top.jsp"></jsp:include>
   		<div class="tab">
   		<div class="tab_title">
-  		<div class="word"><strong>用户登录</strong></div>
+  		<div class="word"><strong>找回密码</strong></div>
   		<hr>
   		</div>
   		
-		<form name="login_form" id="form1" action="/pet/AuthenController" method="post">
+		<form name="find_form" id="form1" action="/pet/AuthenController" method="post">
 			<table width="500px" height="250px;">
 			<tr>
 				<td class="lab"><label>用户名</label></td>
@@ -42,9 +41,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 			
 			<tr>
-				<td class="lab"><label>密码</label></td>
+				<td class="lab"><label>手机号码</label></td>
+				<td><input name="user_tel" onblur="checkTel()" onchange="checkTel()" type="text" width="200px;"></td>
+				<td><span id="msg_tel" style="color:red;"></span></td>
+			</tr>
+			<tr>
+				<td class="lab"><label>新密码</label></td>
 				<td><input name="user_pwd" type="password" width="200px;"></td>
-				<td class="link"><a href="#">找回密码</a></td>
+				<td class="link"></td>
+			</tr>
+			<tr>
+				<td class="lab"><label>密码确认</label></td>
+				<td><input name="user_pwd_confirm" type="password" width="200px;"></td>
+				<td class="link"></td>
 			</tr>
 			
 			<tr>
@@ -58,22 +67,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>输入下面图片的字符<br>
 				<img alt="验证码" id="securitycode" 
 				src="/pet/SecurityCodeController?opt=create"></td>
-				<td></td>
+				<td><span id="msg" style="color:red;"></span></td>
 			</tr>
 			
 			<tr>
-				<td><input type="hidden" name="type" value="login"></td>
-				<td><input type="button" id="comfirm" onclick="checkCode()" value="登录"></td>
-				<td><span style="color: red;" id="msg"></span></td>
+				<td><input type="hidden" name="type" value="findPwd"></td>
+				<td><input type="button" id="comfirm" onclick="checkCode()" value="修改密码"></td>
 			</tr>
 			</table>
 		</form>  		
-				<!-- 检查是否登录失败 -->
-				<script type="text/javascript">
-					if(location.href.search(/loginError/)> 0){
-						document.getElementById("msg").innerHTML = "用户登录失败";
-					}
-				</script>
   		</div>
   	</div>
   </body>

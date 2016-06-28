@@ -1,0 +1,38 @@
+body{
+	width:810px;
+	margin: 0 auto;
+}
+.login{
+	width:810px;
+	height:500px;
+	margin: 0 auto;
+}
+.tab{
+	width: 500px;
+	height: 400px;
+	margin: 0 auto;
+	border: 1px solid black;
+	background: #FCFCFC;
+}
+.tab_title{
+	background-color: #F1F6F8;
+}
+.tab_title .word{
+	margin-top: 8px;
+	margin-left: 8px;
+}
+.lab{
+	text-align: right;
+}
+
+.link a:LINK,.link a:VISITED{
+	color: black;
+	text-decoration: none;
+	
+}
+.link a{
+	font-size:14px;
+}
+.link a:HOVER{
+	color:#00AA98; 
+}

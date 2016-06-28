@@ -32,7 +32,7 @@ function checkCode(){
 			alert("抱歉!你的浏览器不支持Ajax请求");
 		}
 	}
-	var url = "http://localhost:8080/pet/SecurityCodeController?opt=check&code=" + document.login_form.securityCode.value+"&"+Math.random();
+	var url = "/pet/SecurityCodeController?opt=check&code=" + document.login_form.securityCode.value+"&"+Math.random();
 	xmlHttp.open("GET", url, true);
 	xmlHttp.send(null);
 	setTimeout(null, 2000);

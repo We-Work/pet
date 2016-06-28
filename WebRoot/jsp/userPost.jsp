@@ -28,17 +28,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	<div class="index-main">
   		<div class="tips">
   		<h1>
-  		<span class="yel">最新</span><span>领养</span>
-  		</h1>
-  		<div class="count">
-  		<i></i>
-  		今日更新<strong>0</strong>篇
-  		</div>
+  		<span class="yel">我发布的</span><span>领养</span>信息：
+  		</h1> 		
   		</div>
   		<div class="block_content">
   		<ul>
   		
-  		<c:forEach items="${requestScope.petList }" var="pet">
+  		<c:forEach items="${requestScope.petUserList }" var="pet">
   			<li>
   			<div class="cbox">
   			<hr>
@@ -68,7 +64,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			<div class="info">
   			<div class="auto">
   			<img src="/pet/images/noavatar_small.gif" width="26px" height="26px;"/>
-  			<a href="/pet/UserController?type=lookPersonal&user_id=${pet.user.userId}">${pet.user.userName }</a>
+  			<a href="/pet/AuthenController?type=lookPersonal&user_id=${pet.user.userId}">${pet.user.userName }</a>
   			</div>
   			<div class="date"><i></i><span>${pet.petDate }</span></div>
   			</div>
@@ -79,7 +75,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			</li>
   			</c:forEach>
   		</ul>
-  		
+ 		
   		</div>
   		<!-- 分页 -->
   		<c:set value="${requestScope.pageBean }" var="pageBean"/>
@@ -87,9 +83,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		<center>
   		<div class="p_link">
   			<ul>
-  				<li><a href="/pet/PetController?type=petList&pageNow=1">首页</a></li>
+  				<li><a href="/pet/PetController?type=userShowPetList&pageNow=1">首页</a></li>
   				<c:if test="${pageBean.pageNow - 1 > 0}">
-  				<li><a href="/pet/PetController?type=petList&pageNow=${pageBean.pageNow - 1 }">上一页</a></li>
+  				<li><a href="/pet/PetController?type=userShowPetList&pageNow=${pageBean.pageNow - 1 }">上一页</a></li>
   				</c:if>
   				
   				<c:set value="${(pageBean.pageNow - 1) / 10 + 1 }" var="d"/>
@@ -97,14 +93,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   				
   				<c:forEach begin="${s }" end="${s + 10 }" var="i">
   				<c:if test="${i <= pageBean.pageCount }">
-  				<li><a href="/pet/PetController?type=petList&pageNow=${i }">${i }</a></li>
+  				<li><a href="/pet/PetController?type=userShowPetList&pageNow=${i }">${i }</a></li>
   				</c:if>
   				</c:forEach>
   				
   				<c:if test="${pageBean.pageNow + 1 < pageBean.pageCount }">
-  				<li><a href="/pet/PetController?type=petList&pageNow=${pageBean.pageNow + 1 }">下一页</a></li>
+  				<li><a href="/pet/PetController?type=userShowPetList&pageNow=${pageBean.pageNow + 1 }">下一页</a></li>
   				</c:if>
-  				<li><a href="/pet/PetController?type=petList&pageNow=${pageBean.pageCount }">最后一页</a></li>
+  				<li><a href="/pet/PetController?type=userShowPetList&pageNow=${pageBean.pageCount }">最后一页</a></li>
   			</ul>
   			</div>
   			</center>

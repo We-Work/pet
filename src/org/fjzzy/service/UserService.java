@@ -81,6 +81,18 @@ public class UserService extends AbstractService{
 				user.getUserTel(), user.getUserAddress()};
 		return SqlHelper.executeUpdate(sql, paras) == 1 ? true : false;
 	}
+	//修改用户信息
+	public boolean changeUser(User user){
+		String sql="update user set user_name=?,user_sex=?,user_tel=?,user_address=? where user_id=?";
+		Object[] paras={user.getUserName(),user.getUserSex(),user.getUserTel(),user.getUserAddress(),user.getUserId()};
+		int i=SqlHelper.executeUpdate(sql, paras);
+		if(i==1){
+			return true;
+		}else {
+			return false;
+		}
+		
+	}
 	
 	//将数据库关系对象模型转为java对象模型
 	public User parserUser(Object[] obj){

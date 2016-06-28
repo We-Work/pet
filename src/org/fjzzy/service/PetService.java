@@ -3,7 +3,10 @@ package org.fjzzy.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.fjzzy.domain.Pet;
+import org.fjzzy.domain.User;
 import org.fjzzy.util.PageBean;
 import org.fjzzy.util.SqlHelper;
 
@@ -36,6 +39,31 @@ public class PetService extends AbstractService{
 		return petList;
 	}
 	
+	//展示个人宠物信息
+		public ArrayList<Pet> getUserListByPage(User user,PageBean pageBean, boolean load){
+			ArrayList<Pet> petList = new ArrayList<Pet>();	
+			
+			String sql = "select * from Pet where pet_user_id=? limit ?,?";
+			Object[] paras = {user.getUserId(),(pageBean.getPageNow()-1)*pageBean.getPageSize(), 
+					pageBean.getPageSize()};
+			Object[] paras2 = {user.getUserId()};
+			pageBean.setRowCount(this.getRowCount("select count(*) from pet where pet_user_id=?", paras2));
+			int pageCount = (pageBean.getRowCount()-1) / pageBean.getPageSize() + 1;
+			pageBean.setPageCount(pageCount);
+			@SuppressWarnings("unchecked")
+			ArrayList<Object[]> list = SqlHelper.executeQuery(sql, paras);
+			for(Object[] obj : list){
+				Pet pet = parserPet(obj);
+				if(load){
+					pet.setUser(userService.getUserById(pet.getPetUserId(), !load));
+					pet.setType(typeService.getTypeById(pet.getPetType(), !load));
+					pet.setCommentList(commentService.getCommentsByPetId(pet.getPetId(), !load));
+				}
+				petList.add(pet);
+			}
+			return petList;
+		}
+		
 	
 	public ArrayList<Pet> getPetListByType(java.io.Serializable id, boolean load){
 		ArrayList<Pet> petList = new ArrayList<Pet>();

@@ -28,9 +28,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<ul>
 			<c:if test="${sessionScope.user != null }">
 			<li><a href="/pet/TypeController?type=initAddPet">发布帖子</a></li>
-			<li><a href="">我的帖子</a></li>
-			<li><a href="">我的回复</a></li>
-			<li><a href="">个人信息</a></li>
+			<li><a href="/pet/PetController?type=userShowPetList">我的帖子</a></li>
+			<li><a href="/pet/PetController?type=lookReply">我的回复</a></li>
+			<li><a href="/pet/jsp/personal.jsp">个人信息</a></li>
 			
 		</c:if>
 		<c:if test="${sessionScope.user == null }">

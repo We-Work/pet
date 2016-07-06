@@ -9,32 +9,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>My JSP 'MyJsp.jsp' starting page</title>
+    <title>帖子审核</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
-	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
+	
 	<link rel="stylesheet" type="text/css" href="/pet/css/common.css">
 	<link rel="stylesheet" type="text/css" href="/pet/css/home.css">
+	<link rel="stylesheet" type="text/css" href="/pet/css/admin.css">
+
   </head>
   
   <body>
-  <jsp:include page="top.jsp"/>
-  	<div class="index-main">
-  		<div class="tips">
-  		<h1>
-  		<span class="yel">最新</span><span>领养</span>
-  		</h1>
-  		<div class="count">
-  		<i></i>
-  		今日更新<strong>0</strong>篇
-  		</div>
-  		</div>
+  	<jsp:include page="top.jsp"></jsp:include>
+  	<div>
+  		<h4>待审核帖子</h4>
   		<div class="block_content">
   		<ul>
   		
@@ -73,7 +65,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			<div class="date"><i></i><span>${pet.petDate }</span></div>
   			</div>
   			<div class="des">${pet.petIntrod }</div>
-  			
+  			<div class="delete">
+  			<a href="/pet/PetController?type=deletePet&pet_id=${pet.petId }">删除</a>
+  			<a href="/pet/PetController?type=releasePet&pet_id=${pet.petId }&pet_check=true">通过审核</a>
+  			</div>
   			</div>
   			
   			</li>
@@ -87,9 +82,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		<center>
   		<div class="p_link">
   			<ul>
-  				<li><a href="/pet/PetController?type=petList&pageNow=1&state=1">首页</a></li>
+  				<li><a href="/pet/PetController?type=adminRelease&pageNow=1&state=0">首页</a></li>
   				<c:if test="${pageBean.pageNow - 1 > 0}">
-  				<li><a href="/pet/PetController?type=petList&pageNow=${pageBean.pageNow - 1 }&state=1">上一页</a></li>
+  				<li><a href="/pet/PetController?type=adminRelease&pageNow=${pageBean.pageNow - 1 }&state=0">上一页</a></li>
   				</c:if>
   				
   				<c:set value="${(pageBean.pageNow - 1) / 10 + 1 }" var="d"/>
@@ -97,14 +92,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   				
   				<c:forEach begin="${s }" end="${s + 10 }" var="i">
   				<c:if test="${i <= pageBean.pageCount }">
-  				<li><a href="/pet/PetController?type=petList&pageNow=${i }&state=1">${i }</a></li>
+  				<li><a href="/pet/PetController?type=adminRelease&pageNow=${i }&state=0">${i }</a></li>
   				</c:if>
   				</c:forEach>
   				
   				<c:if test="${pageBean.pageNow + 1 < pageBean.pageCount }">
-  				<li><a href="/pet/PetController?type=petList&pageNow=${pageBean.pageNow + 1 }&state=1">下一页</a></li>
+  				<li><a href="/pet/PetController?type=adminRelease&pageNow=${pageBean.pageNow + 1 }&state=0">下一页</a></li>
   				</c:if>
-  				<li><a href="/pet/PetController?type=petList&pageNow=${pageBean.pageNow }&state=1">最后一页</a></li>
+  				<li><a href="/pet/PetController?type=adminRelease&pageNow=${pageBean.pageNow }&state=0">最后一页</a></li>
   			</ul>
   			</div>
   			</center>

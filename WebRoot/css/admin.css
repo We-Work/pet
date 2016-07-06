@@ -1,0 +1,11 @@
+@CHARSET "UTF-8";
+.delete{
+	position: absolute;
+}
+.delete a{
+	color: black;
+	text-decoration: none;
+}
+.delete a:HOVER {
+	color: red;
+}

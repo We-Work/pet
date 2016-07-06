@@ -3,6 +3,12 @@
     xmlns="http://java.sun.com/xml/ns/javaee"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+ 
+ <!-- common-file-upload 临时文件清理 器-->
+ <listener>
+ 	<listener-class>org.apache.commons.fileupload.servlet.FileCleanerCleanup</listener-class>
+ </listener>
+ 
   <servlet>
     <description>This is the description of my J2EE component</description>
     <display-name>This is the display name of my J2EE component</display-name>
@@ -39,6 +45,20 @@
     <servlet-name>CommentController</servlet-name>
     <servlet-class>org.fjzzy.controller.CommentController</servlet-class>
   </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>TypeController</servlet-name>
+    <servlet-class>org.fjzzy.controller.TypeController</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>UserController</servlet-name>
+    <servlet-class>org.fjzzy.controller.UserController</servlet-class>
+  </servlet>
+
+
 
 
 
@@ -69,6 +89,14 @@
   <servlet-mapping>
     <servlet-name>CommentController</servlet-name>
     <url-pattern>/CommentController</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>TypeController</servlet-name>
+    <url-pattern>/TypeController</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UserController</servlet-name>
+    <url-pattern>/UserController</url-pattern>
   </servlet-mapping>
 
 

@@ -3,12 +3,8 @@ package org.fjzzy.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.fjzzy.domain.Pet;
-import org.fjzzy.domain.User;
 import org.fjzzy.util.PageBean;
-import org.fjzzy.util.PetState;
 import org.fjzzy.util.SqlHelper;
 
 public class PetService extends AbstractService{
@@ -18,29 +14,18 @@ public class PetService extends AbstractService{
 	private static TypeService typeService = new TypeService();
 	private static CommentService commentService = new CommentService();
 	//展示宠物信息
-	public ArrayList<Pet> getListByPage(PageBean pageBean, boolean load, int state){
+	public ArrayList<Pet> getListByPage(PageBean pageBean, boolean load){
 		ArrayList<Pet> petList = new ArrayList<Pet>();
-		String sql = null;
-		Object[] paras = {};
-		if(PetState.ALL != state){
-			sql = "select * from Pet where pet_check = ? limit ?,?";
-			paras = new Object[]{state, (pageBean.getPageNow()-1)*pageBean.getPageSize(), 
-					pageBean.getPageSize()};
-			pageBean.setRowCount(this.getRowCount("select count(*) from pet where pet_check = ?", new Object[]{state}));
-		}else{
-			sql = "select * from Pet limit ?,?";
-			paras = new Object[]{ (pageBean.getPageNow()-1)*pageBean.getPageSize(), 
-					pageBean.getPageSize()};
-			pageBean.setRowCount(this.getRowCount("select count(*) from pet", null));
-		}
-		int pageCount = (pageBean.getRowCount()-1) / pageBean.getPageSize() + 1;
-		pageBean.setPageCount(pageCount);
+		String sql = "select * from Pet limit ?,?";
+		Object[] paras = {(pageBean.getPageNow()-1)*pageBean.getPageSize(), 
+				pageBean.getPageSize()};
 		@SuppressWarnings("unchecked")
+		
 		ArrayList<Object[]> list = SqlHelper.executeQuery(sql, paras);
 		for(Object[] obj : list){
 			Pet pet = parserPet(obj);
 			if(load){
-				pet.setUser(userService.getUserById(pet.getPetUserId(), !load));
+				pet.setUser(userService.getUserById(pet.getPetId(), !load));
 				pet.setType(typeService.getTypeById(pet.getPetType(), !load));
 				pet.setCommentList(commentService.getCommentsByPetId(pet.getPetId(), !load));
 			}
@@ -49,31 +34,6 @@ public class PetService extends AbstractService{
 		return petList;
 	}
 	
-	//展示个人宠物信息
-		public ArrayList<Pet> getUserListByPage(User user,PageBean pageBean, boolean load){
-			ArrayList<Pet> petList = new ArrayList<Pet>();	
-			
-			String sql = "select * from Pet where pet_user_id=? limit ?,?";
-			Object[] paras = {user.getUserId(),(pageBean.getPageNow()-1)*pageBean.getPageSize(), 
-					pageBean.getPageSize()};
-			Object[] paras2 = {user.getUserId()};
-			pageBean.setRowCount(this.getRowCount("select count(*) from pet where pet_user_id=?", paras2));
-			int pageCount = (pageBean.getRowCount()-1) / pageBean.getPageSize() + 1;
-			pageBean.setPageCount(pageCount);
-			@SuppressWarnings("unchecked")
-			ArrayList<Object[]> list = SqlHelper.executeQuery(sql, paras);
-			for(Object[] obj : list){
-				Pet pet = parserPet(obj);
-				if(load){
-					pet.setUser(userService.getUserById(pet.getPetUserId(), !load));
-					pet.setType(typeService.getTypeById(pet.getPetType(), !load));
-					pet.setCommentList(commentService.getCommentsByPetId(pet.getPetId(), !load));
-				}
-				petList.add(pet);
-			}
-			return petList;
-		}
-		
 	
 	public ArrayList<Pet> getPetListByType(java.io.Serializable id, boolean load){
 		ArrayList<Pet> petList = new ArrayList<Pet>();
@@ -84,7 +44,7 @@ public class PetService extends AbstractService{
 		for(Object[] obj : list){
 			Pet pet = parserPet(obj);
 			if(load){
-				pet.setUser(userService.getUserById(pet.getPetUserId(), !load));
+				pet.setUser(userService.getUserById(pet.getPetId(), !load));
 				pet.setType(typeService.getTypeById(pet.getPetType(), !load));
 				pet.setCommentList(commentService.getCommentsByPetId(pet.getPetId(), !load));
 			}
@@ -125,22 +85,13 @@ public class PetService extends AbstractService{
 	
 	//增加一条宠物信息
 	public boolean addPet(Pet pet){
-		String sql = "insert into Pet(pet_user_id,pet_title,pet_type,pet_introd,"
-				+ "pet_pic1,pet_pic2,pet_pic3) values(?,?,?,?,?,?,?)";
-		Object[] paras = {pet.getPetUserId(), pet.getPetTitle(), pet.getPetType(), pet.getPetIntrod(), 
-				pet.getPetPic1(), pet.getPetPic2(), pet.getPetPic3()};
-		int i = SqlHelper.executeUpdate(sql, paras);
-		if(i == 1){
-			return true;
-		}else{
-			return false;
-		}
-	}
-	
-	//修改宠物信息
-	public boolean modifyPetState(Pet pet){
-		String sql = "update pet set pet_check = ? where pet_id = ?";
-		Object[] paras = {pet.isPetCheck() ,pet.getPetId()};
+		String sql = "insert into Pet(pet_title,pet_type,pet_date,pet_introd,"
+				+ "pet_state,pet_check,pet_pic1,pet_pic2,pet_pic3) values(?,?,?,"
+				+ "?,?,?,?,?)";
+		String[] paras = {pet.getPetTitle(), pet.getPetType()+"", pet.getPetDate().toString(),
+				pet.getPetIntrod(), Boolean.toString(pet.isPetState()), 
+				Boolean.toString(pet.isPetCheck()), pet.getPetPic1(), pet.getPetPic2(),
+				pet.getPetPic3()};
 		int i = SqlHelper.executeUpdate(sql, paras);
 		if(i == 1){
 			return true;

@@ -69,7 +69,7 @@
 			<div class="com_img">
 			<img src="/pet/images/touxiang.gif">
 			</div>
-			<div class="auth"><span><a href="#"><strong>${comment.user.userName }</strong></a></span></div>
+			<div class="auth"><span><a href="/pet/UserController?type=lookPersonal&user_id=${comment.user.userId}"><strong>${comment.user.userName }</strong></a></span></div>
 			<div class="time">发表于：<span>${comment.commentDate }</span></div>
 			<!-- 回复连接 -->
 			<div class="rp"><a href="javascript:void(0);" onclick="showReplyBox(this,'${sessionScope.user != null }')" name="reply${comment.commentId }" id="${comment.commentId }">回复</a></div>
@@ -78,7 +78,7 @@
 			</div>
 			<c:forEach items="${comment.replyList }" var="reply">
 			<div class="reply">
-			<div><span><a href="#">${reply.user.userName }</a></span> 发表于：${reply.replyDate }</div>
+			<div><span><a href="/pet/UserController?type=lookPersonal&user_id=${reply.user.userId}">${reply.user.userName }</a></span> 发表于：${reply.replyDate }</div>
 			<div>${reply.replyContent }</div>
 			</div>
 			

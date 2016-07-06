@@ -31,7 +31,6 @@ public class ReplyController extends HttpServlet {
 		if("addReply".equals(type)){
 			addReply(request, response, session, reply, replyService,
 					commentService);
-			
 		}
 		
 	}
@@ -40,12 +39,16 @@ public class ReplyController extends HttpServlet {
 			HttpServletResponse response, HttpSession session, Reply reply,
 			ReplyService replyService, CommentService commentService)
 			throws ServletException, IOException {
-		User user = (User) session.getAttribute("user");
-		reply.setReplyUserId(user.getUserId());
-		replyService.addReply(reply);
-		
-		int pet_id = commentService.getCommentById(reply.getReplyCommentId(), false).getCommentPetId();
-		request.getRequestDispatcher("/PetController?type=petShow&pet_id=" + pet_id).forward(request, response);
+		if(session.getAttribute("user") != null){
+			User user = (User) session.getAttribute("user");
+			reply.setReplyUserId(user.getUserId());
+			replyService.addReply(reply);
+			
+			int pet_id = commentService.getCommentById(reply.getReplyCommentId(), false).getCommentPetId();
+			request.getRequestDispatcher("/PetController?type=petShow&pet_id=" + pet_id).forward(request, response);
+		}else{
+			request.getRequestDispatcher("/jsp/login.jsp").forward(request, response);
+		}
 	}
 
 	private Reply extractReply(HttpServletRequest request) {

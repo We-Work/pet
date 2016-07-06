@@ -1,6 +1,7 @@
 package org.fjzzy.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.fjzzy.domain.Comment;
 import org.fjzzy.domain.User;
 import org.fjzzy.service.CommentService;
+import org.fjzzy.util.PageBean;
 
 public class CommentController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -24,20 +26,51 @@ public class CommentController extends HttpServlet {
 		HttpSession session = request.getSession();
 		
 		CommentService commentService = new CommentService();
-		
+		Comment comment = this.extractComment(request);
 		if("addComment".equals(type)){
 			addComment(request, response, session, commentService);
+		}else if("adminComment".equals(type)){
+			//显示评论列表
+			showCommentList(request, response, session, commentService);
+		}else if("delComment".equals(type)){
+			if(session.getAttribute("admin") != null){
+				boolean isDelComment = commentService.deleteComment(comment);
+				if(isDelComment){
+					showCommentList(request, response, session, commentService);
+				}
+			}
 		}
 		
+	}
+	private void showCommentList(HttpServletRequest request,
+			HttpServletResponse response, HttpSession session,
+			CommentService commentService) throws ServletException, IOException {
+		if(session.getAttribute("admin") != null){
+			PageBean pageBean = new PageBean(10);
+			if(request.getParameter("pageNow") != null){
+				pageBean.setPageNow(Integer.parseInt(request.getParameter("pageNow")));
+			}else{
+				pageBean.setPageNow(1);
+			}
+			ArrayList<Comment> list = commentService.getListByPage(pageBean, true);
+			request.setAttribute("commentList", list);
+			request.setAttribute("pageBean", pageBean);
+			request.getRequestDispatcher("/jsp/adminComment.jsp").forward(request, response);
+		}
 	}
 	private void addComment(HttpServletRequest request,
 			HttpServletResponse response, HttpSession session,
 			CommentService commentService) throws ServletException, IOException {
 		Comment comment = extractComment(request);
-		User user = (User) session.getAttribute("user");
-		comment.setCommentUserId(user.getUserId());
-		commentService.addComment(comment);
-		request.getRequestDispatcher("/PetController?type=petShow&pet_id=" + comment.getCommentPetId()).forward(request, response);
+		
+		if(session.getAttribute("user") != null){
+			User user = (User) session.getAttribute("user");
+			comment.setCommentUserId(user.getUserId());
+			commentService.addComment(comment);
+			request.getRequestDispatcher("/PetController?type=petShow&pet_id=" + comment.getCommentPetId()).forward(request, response);
+		}else{
+			request.getRequestDispatcher("/jsp/login.jsp").forward(request, response);
+		}
 	}
 	private Comment extractComment(HttpServletRequest request) {
 		Comment comment = new Comment();

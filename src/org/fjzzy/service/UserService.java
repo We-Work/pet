@@ -3,6 +3,7 @@ package org.fjzzy.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.fjzzy.domain.Admin;
 import org.fjzzy.domain.User;
 import org.fjzzy.util.SqlHelper;
 
@@ -13,7 +14,7 @@ public class UserService extends AbstractService{
 		Object[] paras = {id};
 		@SuppressWarnings("unchecked")
 		ArrayList<Object[]> list = SqlHelper.executeQuery(sql, paras);
-		return parserUser(list.get(0));
+		return !list.isEmpty() ? parserUser(list.get(0)) : null;
 	}
 	
 	//验证用户是否合法
@@ -26,6 +27,18 @@ public class UserService extends AbstractService{
 			return parserUser(list.get(0));
 		}
 		return null;
+	}
+	
+	public boolean checkAdmin(Admin admin){
+		String sql = "select * from admin where admin_name=? and admin_pwd=?";
+		Object[] paras = {admin.getAdminName(),admin.getAdminPwd()};
+		@SuppressWarnings("unchecked")
+		List<Object[]> list = SqlHelper.executeQuery(sql, paras);
+		if(!list.isEmpty()){
+			return true;
+		}else{
+			return false;
+		}
 	}
 	
 	/**
@@ -80,6 +93,18 @@ public class UserService extends AbstractService{
 		Object[] paras = {user.getUserName(), user.getUserPwd(), user.getUserSex(),
 				user.getUserTel(), user.getUserAddress()};
 		return SqlHelper.executeUpdate(sql, paras) == 1 ? true : false;
+	}
+	//修改用户信息
+	public boolean changeUser(User user){
+		String sql="update user set user_name=?,user_sex=?,user_tel=?,user_address=? where user_id=?";
+		Object[] paras={user.getUserName(),user.getUserSex(),user.getUserTel(),user.getUserAddress(),user.getUserId()};
+		int i=SqlHelper.executeUpdate(sql, paras);
+		if(i==1){
+			return true;
+		}else {
+			return false;
+		}
+		
 	}
 	
 	//将数据库关系对象模型转为java对象模型

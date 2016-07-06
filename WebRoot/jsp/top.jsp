@@ -26,6 +26,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<img alt="" src="/pet/images/logotext.png">
 		</div>
 		<ul>
+		<c:if test="${sessionScope.admin == null }">
 			<c:if test="${sessionScope.user != null }">
 			<li><a href="/pet/TypeController?type=initAddPet">发布帖子</a></li>
 			<li><a href="/pet/PetController?type=userShowPetList">我的帖子</a></li>
@@ -37,7 +38,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<li><a href="/pet/jsp/register.jsp">欢迎注册</a></li>
 		</c:if>
 			<li><a href="/pet/jsp/login.jsp">欢迎登陆</a></li>
-			<li><a href="">宠物主页</a></li>
+			<li><a href="/pet">宠物主页</a></li>
+		</c:if>
+		<c:if test="${sessionScope.admin != null }">
+			<li><a href="/pet/PetController?type=adminPet">所有帖子</a></li>
+    		<li><a href="/pet/PetController?type=adminRelease">帖子审核</a></li>
+    		<li><a href="/pet/CommentController?type=adminComment">评论管理</a></li>
+		</c:if>
 		</ul>
 	</div>
 </body>

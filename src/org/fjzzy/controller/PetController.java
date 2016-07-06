@@ -1,6 +1,7 @@
 package org.fjzzy.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -19,6 +20,7 @@ import org.fjzzy.service.CommentService;
 import org.fjzzy.service.PetService;
 import org.fjzzy.util.FormUtil;
 import org.fjzzy.util.PageBean;
+import org.fjzzy.util.PetState;
 
 public class PetController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -33,6 +35,7 @@ public class PetController extends HttpServlet {
 		PetService petService = new PetService();
 		CommentService commentService = new CommentService();
 		String type = request.getParameter("type");
+		int state = (request.getParameter("state") != null ? Integer.parseInt(request.getParameter("state")) : -1);
 		Pet pet = extractPet(request);
 		
 		if("petShow".equals(type)){
@@ -43,8 +46,21 @@ public class PetController extends HttpServlet {
 		}else if("lookReply".equals(type)) {
 			lookReply(request, response, petService);			
 		}else if("petList".equals(type)){
-			showPetList(request, response, petService);
-		}else{
+			showPetList(request, response, petService, state);
+		}else if("adminRelease".equals(type)){
+			//未审核帖子
+			showAdminPet(request, response, session, petService,PetState.UNCHECK,"/jsp/adminRelease.jsp");
+		}else if("adminPet".equals(type)){
+			//已审核帖子
+			showAdminPet(request, response, session, petService,PetState.CHECK,"/jsp/adminPet.jsp");
+		}else if("deletePet".equals(type)){
+			//删除宠物帖子
+			delPet(request, response, session, petService, pet);
+		}else if("releasePet".equals(type)){
+			//审核宠物帖子
+			releasePet(request, response, session, petService, pet);
+		}
+		else{
 			if(session.getAttribute("user") != null){
 				ServletContext servletContext = request.getServletContext();
 				FormUtil.setBasePath(servletContext.getRealPath("/images")  + "\\");
@@ -56,6 +72,45 @@ public class PetController extends HttpServlet {
 		}
 		
 	}
+	private void releasePet(HttpServletRequest request,
+			HttpServletResponse response, HttpSession session,
+			PetService petService, Pet pet) throws ServletException,
+			IOException {
+		if(session.getAttribute("admin") != null){
+			boolean isCheck = petService.modifyPetState(pet);
+			if(isCheck){
+				showAdminPet(request, response, session, petService,PetState.CHECK,"/jsp/adminPet.jsp");
+			}
+		}
+	}
+	private void delPet(HttpServletRequest request,
+			HttpServletResponse response, HttpSession session,
+			PetService petService, Pet pet) throws ServletException,
+			IOException {
+		if(session.getAttribute("admin") != null){
+			boolean isDelPet = petService.delPet(pet);
+			if(isDelPet){
+				showAdminPet(request, response, session, petService,PetState.CHECK,"/jsp/adminPet.jsp");
+			}
+		}
+	}
+	private void showAdminPet(HttpServletRequest request,
+			HttpServletResponse response, HttpSession session,
+			PetService petService,int state,String url) throws ServletException, IOException {
+		if(session.getAttribute("admin") != null){
+			PageBean pagebean = new PageBean(10);
+			if(request.getParameter("pageNow") != null){
+				pagebean.setPageNow(Integer.parseInt(request.getParameter("pageNow")));
+			}else{
+				pagebean.setPageNow(1);
+			}
+			ArrayList arraylist = petService.getListByPage(pagebean, true, state);
+			request.setAttribute("petList", arraylist);
+			request.setAttribute("pageBean", pagebean);
+			request.getRequestDispatcher(url).forward(request, response);
+		}
+	}
+
 	private void addPet(HttpServletRequest request,
 			HttpServletResponse response, HttpSession session,
 			PetService petService, HashMap<String, Object> map)
@@ -95,18 +150,17 @@ public class PetController extends HttpServlet {
 	}
 
 	private void showPetList(HttpServletRequest request,
-			HttpServletResponse response, PetService petService)
+			HttpServletResponse response, PetService petService, int state)
 			throws ServletException, IOException {
 		//设置pageBean
-		PageBean pageBean = new PageBean(1);
+		PageBean pageBean = new PageBean(10);
 		
 		if(request.getParameter("pageNow") != null){
 			pageBean.setPageNow(Integer.parseInt(request.getParameter("pageNow")));
 		}else{
 			pageBean.setPageNow(1);
 		}
-		
-		List<Pet> list = petService.getListByPage(pageBean, true);
+		List<Pet> list = petService.getListByPage(pageBean, true, state);
 		request.setAttribute("petList", list);
 		request.setAttribute("pageBean", pageBean);
 		request.getRequestDispatcher("/jsp/home.jsp").forward(request, response);

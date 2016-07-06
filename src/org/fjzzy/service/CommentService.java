@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fjzzy.domain.Comment;
+import org.fjzzy.domain.Pet;
+import org.fjzzy.util.PageBean;
 import org.fjzzy.util.SqlHelper;
 
 public class CommentService extends AbstractService{
@@ -59,6 +61,35 @@ public class CommentService extends AbstractService{
 		return i == 1 ? true : false;
 	}
 	
+	//获取评论
+	public ArrayList<Comment> getListByPage(PageBean pageBean, boolean load){
+		ArrayList<Comment> commentList = new ArrayList<Comment>();
+		String sql = "select * from comment limit ?,?";
+		Object[] paras = {(pageBean.getPageNow()-1)*pageBean.getPageSize(), pageBean.getPageSize()};
+		pageBean.setRowCount(this.getRowCount("select count(*) from comment", null));
+		int pageCount = (pageBean.getRowCount()-1) / pageBean.getPageSize() + 1;
+		pageBean.setPageCount(pageCount);
+		ArrayList<Object[]> list = SqlHelper.executeQuery(sql, paras);
+		for(Object[] obj : list){
+			Comment comment = parserComment(obj);
+			if(load){
+				comment.setUser(userService.getUserById(comment.getCommentUserId(), !load));
+			}
+			commentList.add(comment);
+		}
+		return commentList;
+	}
+	//删除评论
+	public boolean deleteComment(Comment comment){
+		String sql = "delete from comment where comment_id = ?";
+		Object[] paras = {comment.getCommentId()};
+		int i = SqlHelper.executeUpdate(sql, paras);
+		if(i == 1){
+			return true;
+		}else{
+			return false;
+		}
+	}
 	
 	public Comment parserComment(Object[] obj){
 		Comment comment = new Comment();

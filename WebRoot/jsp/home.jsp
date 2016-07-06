@@ -87,9 +87,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		<center>
   		<div class="p_link">
   			<ul>
-  				<li><a href="/pet/PetController?type=petList&pageNow=1">首页</a></li>
+  				<li><a href="/pet/PetController?type=petList&pageNow=1&state=1">首页</a></li>
   				<c:if test="${pageBean.pageNow - 1 > 0}">
-  				<li><a href="/pet/PetController?type=petList&pageNow=${pageBean.pageNow - 1 }">上一页</a></li>
+  				<li><a href="/pet/PetController?type=petList&pageNow=${pageBean.pageNow - 1 }&state=1">上一页</a></li>
   				</c:if>
   				
   				<c:set value="${(pageBean.pageNow - 1) / 10 + 1 }" var="d"/>
@@ -97,14 +97,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   				
   				<c:forEach begin="${s }" end="${s + 10 }" var="i">
   				<c:if test="${i <= pageBean.pageCount }">
-  				<li><a href="/pet/PetController?type=petList&pageNow=${i }">${i }</a></li>
+  				<li><a href="/pet/PetController?type=petList&pageNow=${i }&state=1">${i }</a></li>
   				</c:if>
   				</c:forEach>
   				
   				<c:if test="${pageBean.pageNow + 1 < pageBean.pageCount }">
-  				<li><a href="/pet/PetController?type=petList&pageNow=${pageBean.pageNow + 1 }">下一页</a></li>
+  				<li><a href="/pet/PetController?type=petList&pageNow=${pageBean.pageNow + 1 }&state=1">下一页</a></li>
   				</c:if>
-  				<li><a href="/pet/PetController?type=petList&pageNow=${pageBean.pageCount }">最后一页</a></li>
+  				<li><a href="/pet/PetController?type=petList&pageNow=${pageBean.pageNow }&state=1">最后一页</a></li>
   			</ul>
   			</div>
   			</center>

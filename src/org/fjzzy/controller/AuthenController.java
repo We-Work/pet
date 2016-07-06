@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.fjzzy.domain.Admin;
 import org.fjzzy.domain.User;
 import org.fjzzy.service.UserService;
 
@@ -42,8 +43,28 @@ public class AuthenController extends HttpServlet {
 		}else if("checkTel".equals(type)){
 			String rs = userService.checkTel(user);
 			response.getWriter().print(rs);
+		}else if("adminlogin".equals(type)){
+			adminlogin(request, response, session, userService);
 		}
 	}
+
+
+	private void adminlogin(HttpServletRequest request,
+			HttpServletResponse response, HttpSession session,
+			UserService userService) throws ServletException, IOException {
+		Admin admin = new Admin(); 
+		admin.setAdminName(request.getParameter("admin_name") != null ? request.getParameter("admin_name") : null );
+		admin.setAdminPwd(request.getParameter("admin_pwd") != null ? request.getParameter("admin_pwd") : null);
+		boolean isCheck = userService.checkAdmin(admin);
+		if(isCheck){
+			session.removeAttribute("user");
+			session.setAttribute("admin",admin);
+			request.getRequestDispatcher("/PetController?type=adminPet").forward(request, response);
+		}else{
+			request.getRequestDispatcher("/jsp/adminLogin.jsp?loginError=error").forward(request, response);
+		}
+	}
+
 
 	//登录处理
 	private void login(HttpServletRequest request,
@@ -51,6 +72,7 @@ public class AuthenController extends HttpServlet {
 			UserService userService) throws ServletException, IOException {
 		user = userService.checkUser(user);
 		if(user != null){
+			session.removeAttribute("admin");
 			session.setAttribute("user", user);
 			request.getRequestDispatcher("/PetController?type=petList").forward(request, response);
 		}else{
@@ -58,6 +80,7 @@ public class AuthenController extends HttpServlet {
 			response.sendRedirect("/pet/jsp/login.jsp?loginError=error");
 		}
 	}
+	
 	
 	
 	private User extractUser(HttpServletRequest request) {
@@ -77,6 +100,7 @@ public class AuthenController extends HttpServlet {
 		user.setUserAddress(request.getParameter("user_address") != null ? request.getParameter("user_address") : null );
 		return user;
 	}
+	
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

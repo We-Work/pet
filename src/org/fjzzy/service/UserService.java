@@ -3,6 +3,7 @@ package org.fjzzy.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.fjzzy.domain.Admin;
 import org.fjzzy.domain.User;
 import org.fjzzy.util.SqlHelper;
 
@@ -26,6 +27,18 @@ public class UserService extends AbstractService{
 			return parserUser(list.get(0));
 		}
 		return null;
+	}
+	
+	public boolean checkAdmin(Admin admin){
+		String sql = "select * from admin where admin_name=? and admin_pwd=?";
+		Object[] paras = {admin.getAdminName(),admin.getAdminPwd()};
+		@SuppressWarnings("unchecked")
+		List<Object[]> list = SqlHelper.executeQuery(sql, paras);
+		if(!list.isEmpty()){
+			return true;
+		}else{
+			return false;
+		}
 	}
 	
 	/**

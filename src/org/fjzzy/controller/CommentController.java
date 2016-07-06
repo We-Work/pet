@@ -2,6 +2,7 @@ package org.fjzzy.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.fjzzy.domain.Comment;
+import org.fjzzy.domain.Pet;
 import org.fjzzy.domain.User;
 import org.fjzzy.service.CommentService;
 import org.fjzzy.util.PageBean;
@@ -33,14 +35,40 @@ public class CommentController extends HttpServlet {
 			//显示评论列表
 			showCommentList(request, response, session, commentService);
 		}else if("delComment".equals(type)){
-			if(session.getAttribute("admin") != null){
-				boolean isDelComment = commentService.deleteComment(comment);
-				if(isDelComment){
-					showCommentList(request, response, session, commentService);
-				}
-			}
+			//删除评论
+			delComment(request, response, session, commentService, comment);
+		}else if("lookReply".equals(type)){
+			//查看我的回复
+			lookReply(request, response, session, commentService);
 		}
 		
+	}
+	private void lookReply(HttpServletRequest request,
+			HttpServletResponse response, HttpSession session,
+			CommentService commentService) throws ServletException, IOException {
+		PageBean pageBean = new PageBean(1);
+		User user=new User();
+		user=(User)session.getAttribute("user");
+		if(request.getParameter("pageNow") != null){
+			pageBean.setPageNow(Integer.parseInt(request.getParameter("pageNow")));
+		}else{
+			pageBean.setPageNow(1);
+		}		
+		List<Comment> list = commentService.getCommentListByUser(pageBean, true, user);
+		request.setAttribute("CommentList", list);
+		request.setAttribute("pageBean", pageBean);
+		request.getRequestDispatcher("/jsp/lookReply.jsp").forward(request, response);
+	}
+	private void delComment(HttpServletRequest request,
+			HttpServletResponse response, HttpSession session,
+			CommentService commentService, Comment comment)
+			throws ServletException, IOException {
+		if(session.getAttribute("admin") != null){
+			boolean isDelComment = commentService.deleteComment(comment);
+			if(isDelComment){
+				showCommentList(request, response, session, commentService);
+			}
+		}
 	}
 	private void showCommentList(HttpServletRequest request,
 			HttpServletResponse response, HttpSession session,

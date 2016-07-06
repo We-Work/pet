@@ -74,7 +74,7 @@ public class AuthenController extends HttpServlet {
 		if(user != null){
 			session.removeAttribute("admin");
 			session.setAttribute("user", user);
-			request.getRequestDispatcher("/PetController?type=petList").forward(request, response);
+			request.getRequestDispatcher("/PetController?type=petList&state=1").forward(request, response);
 		}else{
 			//用户不合法
 			response.sendRedirect("/pet/jsp/login.jsp?loginError=error");

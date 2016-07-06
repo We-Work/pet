@@ -21,6 +21,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	-->
 	<link rel="stylesheet" type="text/css" href="/pet/css/common.css">
 	<link rel="stylesheet" type="text/css" href="/pet/css/home.css">
+	<link rel="stylesheet" type="text/css" href="/pet/css/userpost.css">
   </head>
   
   <body>
@@ -64,12 +65,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			<div class="info">
   			<div class="auto">
   			<img src="/pet/images/noavatar_small.gif" width="26px" height="26px;"/>
-  			<a href="/pet/AuthenController?type=lookPersonal&user_id=${pet.user.userId}">${pet.user.userName }</a>
+  			<a href="/pet/UserController?type=lookPersonal&user_id=${pet.user.userId}">${pet.user.userName }</a>
   			</div>
   			<div class="date"><i></i><span>${pet.petDate }</span></div>
   			</div>
   			<div class="des">${pet.petIntrod }</div>
-  			
+  			<div class="pass">
+  			<c:choose>
+  			<c:when test="${pet.petCheck}">已通过审核</c:when>
+  			<c:otherwise>未审核</c:otherwise>
+  			</c:choose>
+  			</div>
   			</div>
   			
   			</li>

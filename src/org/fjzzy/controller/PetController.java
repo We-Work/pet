@@ -43,8 +43,6 @@ public class PetController extends HttpServlet {
 			
 		}else if("userShowPetList".equals(type)) {
 			userShowPetList(request, response, petService);			
-		}else if("lookReply".equals(type)) {
-			lookReply(request, response, petService);			
 		}else if("petList".equals(type)){
 			showPetList(request, response, petService, state);
 		}else if("adminRelease".equals(type)){
@@ -216,25 +214,7 @@ public class PetController extends HttpServlet {
 		request.setAttribute("pageBean", pageBean);
 		request.getRequestDispatcher("/jsp/userPost.jsp").forward(request, response);
 	}
-	//查看回复
-	private void lookReply(HttpServletRequest request,
-			HttpServletResponse response, PetService petService)
-			throws ServletException, IOException {
-		//设置pageBean
-		PageBean pageBean = new PageBean(1);
-		HttpSession session=request.getSession();
-		User user=new User();
-		user=(User)session.getAttribute("user");
-		if(request.getParameter("pageNow") != null){
-			pageBean.setPageNow(Integer.parseInt(request.getParameter("pageNow")));
-		}else{
-			pageBean.setPageNow(1);
-		}		
-		List<Pet> list = petService.getUserListByPage(user, pageBean, true);
-		request.setAttribute("petUserList", list);
-		request.setAttribute("pageBean", pageBean);
-		request.getRequestDispatcher("/jsp/lookReply.jsp").forward(request, response);
-	}
+	
 	
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

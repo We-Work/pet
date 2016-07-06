@@ -31,21 +31,21 @@
 	<div class="index-main">
 		<div class="tips">
 			<h1>
-				<span class="yel">点击查看回复信息： 
+				<span class="yel">点击查看回复信息： </span>
 			</h1>
 		</div>
 		<div class="block_content">
 			<ul>
 
-				<c:forEach items="${requestScope.petUserList }" var="pet">
+				<c:forEach items="${requestScope.CommentList }" var="Comment">
 					<li>
 						<div class="cbox">
 							<hr>
 							<div class="word">
 								<table border="0" cellpadding="3" cellspacing="2" style="border-bottom:1px solid; ">									 
 										<tr >
-										<td align="left" width="70%"><b><a href="/pet/PetController?type=petShow&pet_id=${pet.petId }">${pet.petTitle }</a></b></td>
-										<td align="right" width="29%">日期：${pet.petDate}</td>
+										<td align="left" width="70%"><b><a href="/pet/PetController?type=petShow&pet_id=${Comment.commentPetId}">${Comment.commentContent}</a></b></td>
+										<td align="right" width="29%">日期：${Comment.commentDate}</td>
 										</tr>								
 								</table>
 							</div>
@@ -61,10 +61,10 @@
 			<center>
 				<div class="p_link">
 					<ul>
-						<li><a href="/pet/PetController?type=lookReply&pageNow=1">首页</a></li>
+						<li><a href="/pet/CommentController?type=lookReply&pageNow=1">首页</a></li>
 						<c:if test="${pageBean.pageNow - 1 > 0}">
 							<li><a
-								href="/pet/PetController?type=lookReply&pageNow=${pageBean.pageNow - 1 }">上一页</a></li>
+								href="/pet/CommentController?type=lookReply&pageNow=${pageBean.pageNow - 1 }">上一页</a></li>
 						</c:if>
 
 						<c:set value="${(pageBean.pageNow - 1) / 10 + 1 }" var="d" />
@@ -73,16 +73,16 @@
 						<c:forEach begin="${s }" end="${s + 10 }" var="i">
 							<c:if test="${i <= pageBean.pageCount }">
 								<li><a
-									href="/pet/PetController?type=lookReply&pageNow=${i }">${i }</a></li>
+									href="/pet/CommentController?type=lookReply&pageNow=${i }">${i }</a></li>
 							</c:if>
 						</c:forEach>
 
 						<c:if test="${pageBean.pageNow + 1 < pageBean.pageCount }">
 							<li><a
-								href="/pet/PetController?type=lookReply&pageNow=${pageBean.pageNow + 1 }">下一页</a></li>
+								href="/pet/CommentController?type=lookReply&pageNow=${pageBean.pageNow + 1 }">下一页</a></li>
 						</c:if>
 						<li><a
-							href="/pet/PetController?type=lookReply&pageNow=${pageBean.pageCount }">最后一页</a></li>
+							href="/pet/CommentController?type=lookReply&pageNow=${pageBean.pageCount }">最后一页</a></li>
 					</ul>
 				</div>
 			</center>

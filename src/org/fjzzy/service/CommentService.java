@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fjzzy.domain.Comment;
-import org.fjzzy.domain.Pet;
+import org.fjzzy.domain.User;
 import org.fjzzy.util.PageBean;
 import org.fjzzy.util.SqlHelper;
 
@@ -69,6 +69,7 @@ public class CommentService extends AbstractService{
 		pageBean.setRowCount(this.getRowCount("select count(*) from comment", null));
 		int pageCount = (pageBean.getRowCount()-1) / pageBean.getPageSize() + 1;
 		pageBean.setPageCount(pageCount);
+		@SuppressWarnings("unchecked")
 		ArrayList<Object[]> list = SqlHelper.executeQuery(sql, paras);
 		for(Object[] obj : list){
 			Comment comment = parserComment(obj);
@@ -89,6 +90,26 @@ public class CommentService extends AbstractService{
 		}else{
 			return false;
 		}
+	}
+	
+	//显示个人评论列表
+	public ArrayList<Comment> getCommentListByUser(PageBean pageBean, boolean load, User user){
+		ArrayList<Comment> commentList = new ArrayList<Comment>();
+		String sql = "Select * from comment where comment_user_id = ? limit ?,?";
+		Object[] paras = {user.getUserId(), (pageBean.getPageNow()-1)*pageBean.getPageSize(), pageBean.getPageSize()};
+		pageBean.setRowCount(this.getRowCount("select count(*) from comment where comment_user_id = ?", new Object[]{user.getUserId()}));
+		int pageCount = (pageBean.getRowCount()-1) / pageBean.getPageSize() + 1;
+		pageBean.setPageCount(pageCount);
+		@SuppressWarnings("unchecked")
+		ArrayList<Object[]> list = SqlHelper.executeQuery(sql, paras);
+		for(Object[] obj : list){
+			Comment comment = parserComment(obj);
+			if(load){
+				comment.setUser(userService.getUserById(comment.getCommentUserId(), !load));
+			}
+			commentList.add(comment);
+		}
+		return commentList;
 	}
 	
 	public Comment parserComment(Object[] obj){

@@ -119,7 +119,7 @@ public class PetController extends HttpServlet {
 			User user = (User) session.getAttribute("user");
 			pet.setPetUserId(user.getUserId());
 			petService.addPet(pet);
-			request.getRequestDispatcher("/PetController?type=petList").forward(request, response);
+			request.getRequestDispatcher("/PetController?type=petList&state=1").forward(request, response);
 		}
 	}
 	private Pet getPet(HashMap<String, Object> map) {
@@ -200,7 +200,7 @@ public class PetController extends HttpServlet {
 			HttpServletResponse response, PetService petService)
 			throws ServletException, IOException {
 		//设置pageBean
-		PageBean pageBean = new PageBean(1);
+		PageBean pageBean = new PageBean(10);
 		HttpSession session=request.getSession();
 		User user=new User();
 		user=(User)session.getAttribute("user");

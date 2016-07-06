@@ -63,7 +63,6 @@ public class UserController extends HttpServlet {
 				request.setAttribute("user", user);
 				request.getRequestDispatcher("/jsp/lookPersonal.jsp").forward(request, response);
 			}else{
-				
 				request.getRequestDispatcher("/PetController?type=petList").forward(request, response);
 			}
 			

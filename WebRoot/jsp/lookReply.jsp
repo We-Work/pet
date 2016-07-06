@@ -39,12 +39,12 @@
 
 				<c:forEach items="${requestScope.CommentList }" var="Comment">
 					<li>
-						<div class="cbox">
+						<div>
 							<hr>
 							<div class="word">
-								<table border="0" cellpadding="3" cellspacing="2" style="border-bottom:1px solid; ">									 
+								<table border="0" cellpadding="3" cellspacing="2">									 
 										<tr >
-										<td align="left" width="70%"><b><a href="/pet/PetController?type=petShow&pet_id=${Comment.commentPetId}">${Comment.commentContent}</a></b></td>
+										<td align="left" width="70%"><b><a style="text-decoration: none;color: black;" href="/pet/PetController?type=petShow&pet_id=${Comment.commentPetId}">${Comment.commentContent}</a></b></td>
 										<td align="right" width="29%">日期：${Comment.commentDate}</td>
 										</tr>								
 								</table>

@@ -46,7 +46,7 @@ public class CommentController extends HttpServlet {
 	private void lookReply(HttpServletRequest request,
 			HttpServletResponse response, HttpSession session,
 			CommentService commentService) throws ServletException, IOException {
-		PageBean pageBean = new PageBean(1);
+		PageBean pageBean = new PageBean(10);
 		User user=new User();
 		user=(User)session.getAttribute("user");
 		if(request.getParameter("pageNow") != null){

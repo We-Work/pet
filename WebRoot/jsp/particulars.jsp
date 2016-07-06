@@ -39,7 +39,7 @@
 				&ensp;&ensp;<img style="border-radius:50%" src="/pet/images/touxiang.gif"><img
 					src="/pet/images/sucai1.jpg" align="middle"><span>1958</span>&ensp;
 				<img src="/pet/images/sucai2.jpg" align="middle"><span>2</span>
-				&ensp; <span>${requestScope.pet.user.userName }</span>&ensp;发表于&ensp;${requestScope.pet.petDate }
+				&ensp; <span><a style="text-decoration: none;color: black;" href="/pet/UserController?type=lookPersonal&user_id=${requestScope.pet.user.userId}">${requestScope.pet.user.userName }</a></span>&ensp;发表于&ensp;${requestScope.pet.petDate }
 			</div>
 			<div class="title3">
 				<div style="margin-left: 20px; margin-right: 20">
